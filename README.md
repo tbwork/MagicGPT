@@ -13,13 +13,14 @@ This framework is designed for Java programmers, and we also welcome developers 
 
 ## Current supported features
 
-| Feature  | Supported | Version  |
-|----------|-----------|----------|
-| 接口访问     | YES       | \>=1.0.0 |
-| 网页访问     | YES       | \>=1.0.0 |
-| 知名搜索引擎   | YES       | \>=1.0.0 |
-| 关系型数据库访问 | NO        | -        |
-| 向量数据库访问  | NO        | -        |
+| Feature           | Supported | Version  |
+|-------------------|-----------|----------|
+| Local methods     | YES       | \>=1.0.0 |
+| Restful API       | YES       | \>=1.0.0 |
+| Web Page          | YES       | \>=1.0.0 |
+| Search Engine     | YES       | \>=1.0.0 |
+| Relation Database | NO        | -        |
+| Vector Datebase   | NO        | -        |
 
 
 
