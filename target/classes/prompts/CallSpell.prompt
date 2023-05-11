@@ -1,6 +1,0 @@
-第{}类：call <apiName> <args>
-此类咒语用于调用特定功能的接口，其中apiName即接口的名称，args含义和数量会随着apiName变化而变化，具体的call咒语如下：
-<list>
-{}
-<list>
-apiName的取值一定要属于上述列表
