@@ -60,10 +60,10 @@ The following sample code demonstrates a basic usage process.
         String customSystemPrompt = PromptUtil.readTestResourceFile("custom_prompts/time_reporter.prompt");
 
         // Specify the package name to search for local Call-type spells.
-        MagicGPT magicGPT = new MagicGPT("cn.lanehub.ai.examples.timeReporter", "时间播报员",  AIWizardType.GPT4);
+        MagicGPT magicGPT = new MagicGPT("cn.lanehub.ai.examples.timeReporter", "Time reporter",  AIWizardType.GPT4);
 
         // Creating a chat
-        Chat magicChat = magicGPT.startChat("你好，我是时间播报员？", customSystemPrompt, Language.CHINESE);
+        Chat magicChat = magicGPT.startChat("Hello, I'am a time reporter!", customSystemPrompt, Language.CHINESE);
 ```
 
 ### Proceed a chat

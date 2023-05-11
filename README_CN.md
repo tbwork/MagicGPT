@@ -62,7 +62,7 @@
         MagicGPT magicGPT = new MagicGPT("cn.lanehub.ai.examples.timeReporter", "时间播报员",  AIWizardType.GPT4);
 
         // 创建聊天
-        Chat magicChat = magicGPT.startChat("你好，我是时间播报员？", customSystemPrompt, Language.CHINESE);
+        Chat magicChat = magicGPT.startChat("你好，我是时间播报员！", customSystemPrompt, Language.CHINESE);
 ```
 
 ### 推进对话
