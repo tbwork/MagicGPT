@@ -1,0 +1,7 @@
+第{}类：search $engineName $keywords $startDate $endDate
+咒语解释：在互联网上搜索指定关键词和指定时间范围的网页的链接，以及关于该网页的简要信息，简要信息往往仅是网页详情的部分内容，未必全面，你需要自己判断。
+参数介绍：
+engineName 不可空。代表搜索引擎的名称，可取的值有：{}；
+keywords 不可空。代表你想搜索的内容关键词；
+startDate 可空。指定开始日期，格式"YYYY-MM-DD"
+endDate 可空。指定结束日期；格式"YYYY-MM-DD"

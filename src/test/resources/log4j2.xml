@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <RollingFile name="DebugAppender" fileName="target/logs/debug.log"
+                     filePattern="target/logs/debug-%d{yyyy-MM-dd}.log" immediateFlush="true">
+            <PatternLayout>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+        <RollingFile name="InfoAppender" fileName="target/logs/info.log"
+                     filePattern="target/logs/info-%d{yyyy-MM-dd}.log" immediateFlush="true">
+            <PatternLayout>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="org.apache" level="OFF"/>
+        <Logger name="io.github" level="OFF"/>
+        <Root level="debug">
+            <AppenderRef ref="DebugAppender" level="debug" />
+            <AppenderRef ref="InfoAppender" level="info" />
+        </Root>
+    </Loggers>
+</Configuration>
