@@ -51,7 +51,7 @@
 > 准备工作： 确保程序已经启动了本地配置管理框架anole-loader，具体用法参考[anole-loader](https://github.com/tbwork/anole-config);
 > 这是一个傻瓜式本地配置管理框架，几乎可以访问任何位置的kv配置，而无需关心定义文件在哪里。
 
-### 初始化
+### 开启一个对话
 ```java
 
         // 加载自定义提示词
@@ -85,7 +85,7 @@
 
 ```
 
-完整的可运行代码在test/java的cn.lanehub.ai.examples下。
+完整的可运行代码在src/test/java的cn.lanehub.ai.examples下。
 
 
 
