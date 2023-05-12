@@ -87,7 +87,7 @@ Gradle，SBT，Leiningen等其他包管理方式参考： https://jitpack.io/#tb
 ```java
 
         // 创建MagicGPT：指定包名搜索本地Call类型咒语
-        MagicGPT magicGPT = new MagicGPT("cn.lanehub.ai.examples.timeReporter", "时间播报员",  AIWizardType.GPT4);
+        MagicGPT magicGPT = new MagicGPT("<package name>", "时间播报员",  AIWizardType.GPT4);
 
         // 加载自定义提示词
         String customSystemPrompt = "你是一个时间播报员，随时按照用户的需求播报时间。";

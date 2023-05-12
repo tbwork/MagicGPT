@@ -89,7 +89,7 @@ For other package management methods such as Gradle, SBT, Leiningen, please refe
 ```java
 
         // Create MagicGPT: specify the package name to search for local Call-type spells.
-        MagicGPT magicGPT = new MagicGPT("cn.lanehub.ai.examples.timeReporter", "Time reporter",  AIWizardType.GPT4);
+        MagicGPT magicGPT = new MagicGPT("<package name>", "Time reporter",  AIWizardType.GPT4);
 
         // Custom Prompt Words
         String customSystemPrompt = "You are a time announcer, ready to announce the time at any moment according to the user's request."; 
