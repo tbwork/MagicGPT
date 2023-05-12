@@ -123,6 +123,10 @@ Output to HttpResponse：
 
 The complete runnable code can be found in "cn.lanehub.ai.examples" under "src/test/java" directory.
 
+**Running result:**
+
+![Time Announcer](image/example_resul.png)
+
 
 
 ## How to contribute to the code

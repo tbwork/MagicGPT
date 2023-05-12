@@ -123,6 +123,11 @@ Gradle，SBT，Leiningen等其他包管理方式参考： https://jitpack.io/#tb
 完整的可运行代码在src/test/java的cn.lanehub.ai.examples下。
 
 
+**运行效果图：**
+
+![时间播报员](image/example_resul.png)
+
+
 
 ## 如何贡献代码
 1. 确定自己已经完全理解了MagicGPT的魔法世界机制。
