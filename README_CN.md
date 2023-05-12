@@ -1,6 +1,8 @@
-# OmniGPT [English](/README.md)
+# OmniGPT 
 
-[![](https://jitpack.io/v/tbwork/MagicGPT.svg)](https://jitpack.io/#tbwork/MagicGPT)  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[English Document](/README.md)
+
+[![](https://jitpack.io/v/tbwork/MagicGPT.svg)](https://jitpack.io/#tbwork/MagicGPT)  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  
 
 给GPT装上翅膀——通过MagicGPT，你可以让GPT随时随地按需访问本地方法、Restful API接口、常见搜索引擎、指定URL地址的网页、关系型数据库、向量数据库等。
 
