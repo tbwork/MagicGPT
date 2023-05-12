@@ -53,6 +53,36 @@ The following sample code demonstrates a basic usage process.
 
 > Preparation: Make sure that the anole-loader local configuration management framework has been started in the program. For specific usage, please refer to [anole-loader](https://github.com/tbwork/anole-config); This is a foolproof local configuration management framework that can access almost any location of KV configuration without worrying about where the definition file is.
 
+### Dependency configuration
+
+If you haven't configured the JitPack repository, you need to add the following to your POM:
+
+```xml
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
+```
+
+Then import the MagicGPT package:
+
+```xml
+
+    <dependency>
+        <groupId>com.github.tbwork</groupId>
+        <artifactId>MagicGPT</artifactId>
+        <version>${version}</version>
+    </dependency>
+
+```
+
+
+For other package management methods such as Gradle, SBT, Leiningen, please refer to: https://jitpack.io/#tbwork/MagicGPT
+
+
 ### Start a chat
 ```java
 

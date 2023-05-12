@@ -52,6 +52,35 @@
 > 准备工作： 确保程序已经启动了本地配置管理框架anole-loader，具体用法参考[anole-loader](https://github.com/tbwork/anole-config);
 > 这是一个傻瓜式本地配置管理框架，几乎可以访问任何位置的kv配置，而无需关心定义文件在哪里。
 
+### 依赖配置
+
+如果您没有配置JitPack仓库，需要在POM中加上：
+```xml
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
+```
+
+然后引入MagicGPT包:
+
+```xml
+
+    <dependency>
+        <groupId>com.github.tbwork</groupId>
+        <artifactId>MagicGPT</artifactId>
+        <version>${version}</version>
+    </dependency>
+
+```
+
+
+Gradle，SBT，Leiningen等其他包管理方式参考： https://jitpack.io/#tbwork/MagicGPT
+
+
 ### 开启一个对话
 ```java
 
