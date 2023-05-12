@@ -88,11 +88,11 @@ For other package management methods such as Gradle, SBT, Leiningen, please refe
 ### Start a chat
 ```java
 
-        // Loading Custom Prompt Words
-        String customSystemPrompt = PromptUtil.readTestResourceFile("custom_prompts/time_reporter.prompt");
-
-        // Specify the package name to search for local Call-type spells.
+        // Create MagicGPT: specify the package name to search for local Call-type spells.
         MagicGPT magicGPT = new MagicGPT("cn.lanehub.ai.examples.timeReporter", "Time reporter",  AIWizardType.GPT4);
+
+        // Custom Prompt Words
+        String customSystemPrompt = "You are a time announcer, ready to announce the time at any moment according to the user's request."; 
 
         // Creating a chat
         Chat magicChat = magicGPT.startChat("Hello, I'am a time reporter!", customSystemPrompt, Language.CHINESE);
