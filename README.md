@@ -51,7 +51,7 @@ The above can help you quickly understand the relationships and functions of eac
 
 ## How to use
 
-The following sample code demonstrates a basic usage process. Runnable code is in [TestTimeReporter.java](src/test/java/cn/lanehub/ai/examples/timeReporter/TestTimeReporter.java)
+The following sample code demonstrates a basic usage process. Runnable code are in [TestTimeReporter.java](src/test/java/cn/lanehub/ai/examples/timeReporter/TestTimeReporter.java)
 
 > Preparation: Make sure that the anole-loader local configuration management framework has been started in the program. For specific usage, please refer to [anole-loader](https://github.com/tbwork/anole-config); This is a foolproof local configuration management framework that can access almost any location of KV configuration without worrying about where the definition file is.
 
