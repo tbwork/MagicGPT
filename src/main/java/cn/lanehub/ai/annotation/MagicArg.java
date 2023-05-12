@@ -1,6 +1,5 @@
 package cn.lanehub.ai.annotation;
 
-import com.sun.istack.internal.NotNull;
 
 import java.lang.annotation.*;
 
@@ -12,7 +11,7 @@ import java.lang.annotation.*;
 @Target({ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface OmniArg {
+public @interface MagicArg {
 
     @NotNull
     String name();
@@ -20,6 +19,7 @@ public @interface OmniArg {
     @NotNull
     String description();
 
+    @NotNull
     boolean required() default true;
 
 }

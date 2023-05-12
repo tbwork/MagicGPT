@@ -1,7 +1,7 @@
 package cn.lanehub.ai.core.call.collector.impl;
 
 import cn.lanehub.ai.annotation.CallSpellDefinition;
-import cn.lanehub.ai.annotation.OmniArg;
+import cn.lanehub.ai.annotation.MagicArg;
 import cn.lanehub.ai.core.call.CallSpell;
 import cn.lanehub.ai.core.call.CallSpellType;
 import cn.lanehub.ai.core.call.LocalCallSpell;
@@ -88,9 +88,9 @@ public class AnnotationCallSpellCollector extends AbstractSpellCollector {
             }
             Annotation[] annotations = parameter.getAnnotations();
             for (Annotation annotation : annotations) {
-                if (annotation instanceof OmniArg) {
-                    OmniArg omniArg = (OmniArg) annotation;
-                    result.add( new Arg(false, omniArg.name(), omniArg.description(), omniArg.required()));
+                if (annotation instanceof MagicArg) {
+                    MagicArg magicArg = (MagicArg) annotation;
+                    result.add( new Arg(false, magicArg.name(), magicArg.description(), magicArg.required()));
                 }
                 else{
                     throw new MagicGPTGeneralException(PromptUtil.formatPrompt(" In OmniGPT, each parameter of the local function executed by each spell must be annotated with the @OmniArg annotation. Details: method:{}, parameter's type:{}", method.getName(), parameter.getType().getTypeName()));

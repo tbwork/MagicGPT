@@ -54,7 +54,7 @@
 
 ### 依赖配置
 
-如果您没有配置JitPack仓库，需要在POM中加上：
+如果您没有配置JitPack仓库，需要在项目的pom.xml中加上：
 ```xml
     <repositories>
         <repository>
@@ -64,6 +64,8 @@
     </repositories>
 
 ```
+> 也可以在.m2/settings.xml中配置
+
 
 然后引入MagicGPT包:
 

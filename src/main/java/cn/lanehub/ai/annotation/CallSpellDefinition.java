@@ -1,7 +1,5 @@
 package cn.lanehub.ai.annotation;
 
-import com.sun.istack.internal.NotNull;
-
 import java.lang.annotation.*;
 
 /**

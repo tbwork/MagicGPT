@@ -55,7 +55,7 @@ The following sample code demonstrates a basic usage process.
 
 ### Dependency configuration
 
-If you haven't configured the JitPack repository, you need to add the following to your POM:
+If you haven't configured the JitPack repository, you need to add the following to your project's pom.xml:
 
 ```xml
     <repositories>
@@ -66,6 +66,8 @@ If you haven't configured the JitPack repository, you need to add the following 
     </repositories>
 
 ```
+> You can also configure it in .m2/settings.xml.
+
 
 Then import the MagicGPT package:
 

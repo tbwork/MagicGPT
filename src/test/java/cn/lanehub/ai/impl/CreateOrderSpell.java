@@ -1,7 +1,7 @@
 package cn.lanehub.ai.impl;
 
 import cn.lanehub.ai.annotation.CallSpellDefinition;
-import cn.lanehub.ai.annotation.OmniArg;
+import cn.lanehub.ai.annotation.MagicArg;
 
 /**
  * @author shawn feng
@@ -11,8 +11,8 @@ import cn.lanehub.ai.annotation.OmniArg;
 public class CreateOrderSpell {
 
     @CallSpellDefinition(name = "createOrder", description= "创建订单")
-    public static String createOrder( @OmniArg(name = "itemName", description = "商品名称") String itemName,
-                              @OmniArg(name = "price", description =  "价格") String price) {
+    public static String createOrder( @MagicArg(name = "itemName", description = "商品名称") String itemName,
+                              @MagicArg(name = "price", description =  "价格") String price) {
         return "api implement by annotation";
     }
 
