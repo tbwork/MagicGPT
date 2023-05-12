@@ -1,4 +1,4 @@
-package cn.lanehub.ai.util;
+package cn.lanehub.ai.output;
 
 import java.io.IOException;
 import java.io.OutputStream;

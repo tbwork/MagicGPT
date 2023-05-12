@@ -1,9 +1,9 @@
 package cn.lanehub.ai.util;
 
 
+import cn.lanehub.ai.output.SystemOutputStream;
+
 import java.io.OutputStream;
-import java.io.PipedOutputStream;
-import java.io.PrintStream;
 
 public class TestUtil {
 
