@@ -4,6 +4,7 @@ import cn.lanehub.ai.core.spell.book.impl.MagicSpellBook;
 import cn.lanehub.ai.core.spell.manager.ISpellManager;
 import cn.lanehub.ai.core.spell.book.IMagicSpellBook;
 import cn.lanehub.ai.exceptions.AIBusyException;
+import cn.lanehub.ai.model.Role;
 import cn.lanehub.ai.model.WizardStatus;
 import cn.lanehub.ai.prompts.IPrompt;
 import cn.lanehub.ai.prompts.Language;
@@ -28,6 +29,8 @@ public abstract class AbstractChatWizard implements IChatWizard {
     private static final Logger logger = LoggerFactory.getLogger(AbstractChatWizard.class);
 
     private IMagicSpellBook magicSpellBook ;
+
+    private static final String
 
     protected final int maxMessageTokenCount;
 
@@ -104,11 +107,13 @@ public abstract class AbstractChatWizard implements IChatWizard {
     @Override
     public void forceGenerate(MagicChat magicChat, OutputStream outputStream) {
 
+        // 如果Chat中存在
+        if()
+
         // 对chat中tokens数量超量时进行优化，确保不超量即可
         MessageUtil.optimizeChat(magicChat, maxChatTokenCount);
-
-        // 执行AI，获得回答的输入流，开启读取线程，不断的读取、处理、并输出到指定的输出流上。
         magicChat.setWizardStatus(WizardStatus.RESPONDING);
+        // 执行AI，获得回答的输入流，开启读取线程，不断的读取、处理、并输出到指定的输出流上。
         InputStream inputStream = doGenerate(magicChat);
         AIResponseStreamReadTask AIResponseStreamReadTask =new AIResponseStreamReadTask(inputStream, outputStream, this, magicChat);
         StreamReaderManager.INSTANCE.submitTask(AIResponseStreamReadTask);
@@ -119,19 +124,12 @@ public abstract class AbstractChatWizard implements IChatWizard {
     @Override
     public void generate(MagicChat magicChat, OutputStream outputStream) {
 
-        // 对chat中tokens数量超量时进行优化，确保不超量即可
-        MessageUtil.optimizeChat(magicChat, maxChatTokenCount);
-
         // 如果AI在忙，报错
         if(!magicChat.isIdle()){
             throw new AIBusyException(magicChat.getWizardStatus());
         }
 
-        // 执行AI，获得回答的输入流，开启读取线程，不断的读取、处理、并输出到指定的输出流上。
-        magicChat.setWizardStatus(WizardStatus.RESPONDING);
-        InputStream inputStream = doGenerate(magicChat);
-        AIResponseStreamReadTask AIResponseStreamReadTask =new AIResponseStreamReadTask(inputStream, outputStream, this, magicChat);
-        StreamReaderManager.INSTANCE.submitTask(AIResponseStreamReadTask);
+       this.forceGenerate(magicChat, outputStream);
 
     }
 
@@ -148,6 +146,15 @@ public abstract class AbstractChatWizard implements IChatWizard {
 
 
 
+    private boolean needAIGenerate(MagicChat magicChat){
 
+        MagicMessage magicMessage = magicChat.getLatestMessage();
+
+        if(Role.SYSTEM.getValue().equals(magicMessage.getRole())){
+            //如果是System的结果
+            return magicMessage.getContent().startsWith("");
+        }
+
+    }
 
 }

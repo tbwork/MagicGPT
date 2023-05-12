@@ -51,4 +51,8 @@ public class MagicChat {
         return this.wizardStatus.equals(WizardStatus.IDLE);
     }
 
+
+    public MagicMessage getLatestMessage(){
+        return chatContent.get(chatContent.size() -1);
+    }
 }
