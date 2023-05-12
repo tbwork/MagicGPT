@@ -1,4 +1,4 @@
-# OmniGPT
+# OmniGPT  [中文](/README_CN.md)
 
 [![](https://jitpack.io/v/tbwork/MagicGPT.svg)](https://jitpack.io/#tbwork/MagicGPT)  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
