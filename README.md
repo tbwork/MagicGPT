@@ -1,4 +1,4 @@
-# OmniGPT  
+# MagicGPT  
 
 [查看中文文档](/README_CN.md)
 

@@ -1,4 +1,4 @@
-# OmniGPT 
+# MagicGPT 
 
 [English Document](/README.md)
 
