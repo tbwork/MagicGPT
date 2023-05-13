@@ -30,7 +30,6 @@ public abstract class AbstractChatWizard implements IChatWizard {
 
     private IMagicSpellBook magicSpellBook ;
 
-    private static final String
 
     protected final int maxMessageTokenCount;
 
