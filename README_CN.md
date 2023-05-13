@@ -151,7 +151,7 @@ Linux
 ```java
 
         // 用户输入一句话，推进一个聊天，指定控制台输出流
-        magicGPT.proceedChatWithUserMessage(input, magicChat, TestUtil.getConsoleOutputStream());
+        magicGPT.proceedChatWithUserMessage(input, magicChat, new SystemOutputStream());
 
 ```
 

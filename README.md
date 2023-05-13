@@ -149,7 +149,7 @@ Output to console:
 ```java
 
         // User inputs a sentence to initiate a chat and specifies the output stream to the console.
-        magicGPT.proceedChatWithUserMessage(input, magicChat, TestUtil.getConsoleOutputStream());
+        magicGPT.proceedChatWithUserMessage(input, magicChat, new SystemOutputStream());
 
 ```
 
