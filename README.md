@@ -83,9 +83,51 @@ Then import the MagicGPT package:
 
 ```
 
-
 For other package management methods such as Gradle, SBT, Leiningen, please refer to: https://jitpack.io/#tbwork/MagicGPT
 
+
+### Setting Key Variables
+
+#### GPT3/4 Large Model
+
+Configure the OPENAI_API_KEY in the system environment. Below are the methods for setting environment variables on different operating systems:
+
+Windows
+
+```
+1. Open the "Control Panel" and select "System and Security" > "System" > "Advanced system settings".
+
+2. In the "System Properties" dialog box, select the "Advanced" tab, and then click the "Environment Variables" button under "Environment Variables".
+
+3. In the "Environment Variables" dialog box, you can add, edit, and delete user variables and system variables.
+
+4. To add a new system variable, select the "New" button, enter the variable name and value, and then click "OK".
+```
+
+MacOS
+```
+1. Open the "Terminal" application in macOS.
+
+2. Enter the command: `nano ~/.bash_profile`, and then press Enter.
+
+3. In the text editor, you can add, edit, and delete environment variables.
+
+4. After adding the variables, press Control + O to save, and then press Control + X to exit.
+```
+
+Linux
+```
+1. Open the terminal application in Linux.
+
+2. Enter the command: `nano ~/.bashrc`, and then press Enter.
+
+3. In the text editor, you can add, edit, and delete environment variables.
+
+4. After adding the variables, press Control + O to save, and then press Control + X to exit.
+```
+
+
+Alternatively, it can also be defined in any .anole or .properties file (although this method is not recommended as it may lead to privacy leaks).
 
 ### Start a chat
 ```java
