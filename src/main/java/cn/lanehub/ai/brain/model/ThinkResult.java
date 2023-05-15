@@ -13,7 +13,7 @@ import java.io.InputStream;
 public class ThinkResult {
 
     /**
-     * 是否需要进一步思考
+     * 是否需要进一步思考。默认为true，代表思考完毕后需要交给下一个脑处理器进行处理。
      */
     private boolean needFurtherThink;
 
@@ -24,6 +24,11 @@ public class ThinkResult {
 
     public ThinkResult(InputStream inputStream){
         this.brainOutputStream = inputStream;
+        this.needFurtherThink = true;
+    }
+
+    public ThinkResult(){
+        this.brainOutputStream = null;
         this.needFurtherThink = true;
     }
 

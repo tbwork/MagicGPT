@@ -1,4 +1,4 @@
-package cn.lanehub.ai.examples.timeReporter;
+package cn.lanehub.ai.examples.customProcessor;
 
 import cn.lanehub.ai.MagicGPT;
 import cn.lanehub.ai.annotation.CallSpellDefinition;
@@ -15,11 +15,11 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 @AnoleConfigLocation()
-public class TestTimeReporter {
+public class TestDrawBrain {
 
-    @CallSpellDefinition(name = "queryTime", description= "查询当前的时间")
-    public static String queryTime() {
-        return DateUtil.getCurrentTime();
+    @CallSpellDefinition(name = "recommendItem", description= "给用户推荐商品")
+    public static String recommendItem() {
+        return "DRAW ITEM 123,562,99,888";
     }
 
 
@@ -28,15 +28,12 @@ public class TestTimeReporter {
         // 启动配置管理器Anole
         AnoleApp.start();
 
-        // 加载自定义提示词
-        String customSystemPrompt = PromptUtil.readTestResourceFile("custom_prompts/time_reporter.prompt");
-
         // 指定包名搜索本地Call类型咒语
-        MagicGPT magicGPT = new MagicGPT(TestTimeReporter.class.getPackage().getName(), BrainMainProcessorType.GPT4);
+        MagicGPT magicGPT = new MagicGPT(TestDrawBrain.class.getPackage().getName(), BrainMainProcessorType.GPT4);
 
         // 创建聊天
-        MagicChat magicChat = magicGPT.startChat("你好，当你需要知道现在几点了，随时问我!", customSystemPrompt, Language.CHINESE);
-        System.out.print("AI：你好，当你需要知道现在几点了，随时问我!");
+        MagicChat magicChat = magicGPT.startChat("你好，我是商品推荐员！", "当用户要求推荐商品时，你就使用咒语推荐商品即可。", Language.CHINESE);
+        System.out.print("AI：你好，我是商品推荐员！");
 
         // 开始聊天
         Scanner scanner = new Scanner(System.in);

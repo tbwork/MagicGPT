@@ -48,7 +48,7 @@ public class ChatWizard implements IChatWizard {
     }
 
     @Override
-    public List<IThinkProcessor> getBrain() {
+    public List<IThinkProcessor> getBrains() {
         return this.brain;
     }
 
@@ -88,7 +88,8 @@ public class ChatWizard implements IChatWizard {
 
     @Override
     public void forceGenerate(MagicChat magicChat, OutputStream outputStream) {
-        AIResponseStreamReadTask AIResponseStreamReadTask =new AIResponseStreamReadTask(this.brain, outputStream, magicChat);
+        magicChat.setStatus(WizardStatus.RESPONDING);
+        AIResponseStreamReadTask AIResponseStreamReadTask =new AIResponseStreamReadTask(this, outputStream, magicChat);
         StreamReaderManager.INSTANCE.submitTask(AIResponseStreamReadTask);
     }
 

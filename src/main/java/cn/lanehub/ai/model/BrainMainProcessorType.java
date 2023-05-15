@@ -22,11 +22,13 @@ public enum BrainMainProcessorType {
     private final String value;
 
     private int maxTokenCount;
+
     private final String description;
 
     private BrainMainProcessorType(String value, int maxTokenCount, String description) {
         this.value = value;
         this.description = description;
+        this.maxTokenCount = maxTokenCount;
     }
 
     public String getValue() {

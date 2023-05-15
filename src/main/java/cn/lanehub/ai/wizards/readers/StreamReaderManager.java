@@ -18,7 +18,7 @@ public class StreamReaderManager {
     private StreamReaderManager(){
         initialThreads = Anole.getIntProperty("magicgpt.config.reader.threads.initialCount", 100);
         maxThreads = Anole.getIntProperty("magicgpt.config.reader.threads.maxThreads", 1000);
-        keepAliveTime = Anole.getIntProperty("magicgpt.config.reader.threads.keepAliveTime", 5);
+        keepAliveTime = Anole.getIntProperty("magicgpt.config.reader.threads.keepAliveTime.second", 5);
         this.threadPool = new ThreadPoolExecutor(initialThreads, maxThreads, keepAliveTime, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
     }
 

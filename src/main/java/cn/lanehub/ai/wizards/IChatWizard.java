@@ -37,6 +37,6 @@ public interface IChatWizard {
     MagicChat startChat(String customPrompt, Language language);
 
 
-    List<IThinkProcessor> getBrain();
+    List<IThinkProcessor> getBrains();
 
 }

@@ -63,13 +63,13 @@ public class OpenAIThinkProcessor extends AbstractRemoteLLMThinkProcessor {
             return jsonObject.getAsJsonArray("choices").get(0).getAsJsonObject().get("delta").getAsJsonObject().get("content").getAsString();
         }
         catch (Exception e){
-            logger.error("Fail to parse GPT4 API's steam response. Chunk data: {} ", chunk);
-            throw new MessageStreamException("Fail to parse GPT4 API's steam response. Chunk data:"+chunk);
+            logger.error("Fail to parse GPT4 API's steam response. Chunk data: {} ", chunk );
+            throw new MessageStreamException("Fail to parse GPT4 API's steam response. Chunk data:" + chunk );
         }
     }
 
     @Override
-    public ThinkResult process(MagicChat magicChat, OutputStream outputStream) {
+    public ThinkResult process(MagicChat magicChat) {
 
         Response response = this.getOpenAIResponse(magicChat);
 
@@ -116,6 +116,7 @@ public class OpenAIThinkProcessor extends AbstractRemoteLLMThinkProcessor {
             return httpClient.newCall(request).execute();
 
         } catch (Exception e) {
+            logger.error("Fails to call OpenAI API. Details: {}", e);
             throw new RemoteLLMCallException("GPT4");
         }
     }
@@ -128,7 +129,7 @@ public class OpenAIThinkProcessor extends AbstractRemoteLLMThinkProcessor {
     private GPTRequest buildChatGPTRequest(MagicChat magicChat) {
         GPTRequest gptRequest = new GPTRequest();
         gptRequest.setModel(this.brainMainProcessorType.getValue());
-        gptRequest.setMaxTokens(this.brainMainProcessorType.getMaxTokenCount());
+        gptRequest.setMaxTokens(Anole.getIntProperty("magicgpt.config.llm.api.openai.chat.response.max.length", 500));
         gptRequest.setTemperature(Anole.getDoubleProperty("magicgpt.config.llm.api.openai.chat.temperature", 0.6));
         gptRequest.setStream(true);
         List<GPTMessage> messages = new ArrayList<>();

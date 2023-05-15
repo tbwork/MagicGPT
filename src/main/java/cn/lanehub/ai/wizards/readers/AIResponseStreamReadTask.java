@@ -26,9 +26,6 @@ import java.util.List;
 public class AIResponseStreamReadTask implements Runnable {
 
     private static final Logger logger = LoggerFactory.getLogger(AIResponseStreamReadTask.class);
-
-    private List<IThinkProcessor> brain;
-
     private BufferedReader bufferedReader;
     private OutputStream outputStream;
 
@@ -46,8 +43,8 @@ public class AIResponseStreamReadTask implements Runnable {
 
 
 
-    public AIResponseStreamReadTask(List<IThinkProcessor> brain, OutputStream outputStream, MagicChat magicChat) {
-        this.brain = brain;
+    public AIResponseStreamReadTask(IChatWizard chatWizard, OutputStream outputStream, MagicChat magicChat) {
+        this.chatWizard = chatWizard;
         this.outputStream = outputStream;
         this.magicChat = magicChat;
         this.spellBuffer = new StringBuilder();
@@ -58,6 +55,7 @@ public class AIResponseStreamReadTask implements Runnable {
     public void run() {
         try {
 
+            List<IThinkProcessor> brain = chatWizard.getBrains();
             // 根据脑中的处理器顺序逐个处理，当无需进一步处理时直接跳出。
             for(int i = 0; i < brain.size(); i ++){
                 IThinkProcessor processor = brain.get(i);
@@ -116,7 +114,7 @@ public class AIResponseStreamReadTask implements Runnable {
 
                 String code = (errorObj.getAsJsonObject("error").get("code")==null ? "" : errorObj.getAsJsonObject("error").get("code")).toString();
                 String message = errorObj.getAsJsonObject("error").get("message")==null?"":errorObj.getAsJsonObject("error").get("message").toString();
-                logger.error("Failed to call OpenAI API Details: {}:{}", code, message);
+                logger.error("Failed to call OpenAI API. Details: {}:{}", code, message);
             }
         }
         catch (Exception e){
@@ -141,35 +139,38 @@ public class AIResponseStreamReadTask implements Runnable {
      */
     private boolean outputThinkResult(IThinkProcessor thinkProcessor) throws IOException {
 
-        ThinkResult thinkResult = thinkProcessor.process(magicChat, outputStream);
-        this.bufferedReader = new BufferedReader(new InputStreamReader(thinkResult.getBrainOutputStream()));
-        String line;
-        this.magicChat.setStatus(WizardStatus.RESPONDING);
-        while ((line = bufferedReader.readLine()) != null) {
-            if(line.isEmpty()){
-                continue;
-            }
-            if(this.isErrorResponse(line)){
-                this.readAndLogError(bufferedReader);
-                NetUtil.writeToOutpuStream(MessageUtil.getLLMDownError(this.magicChat.getLanguage()), outputStream);
-            }
-            String chunkText = thinkProcessor.parseChunk(line);
-            this.responseTextBuffer.append(chunkText);
-            if(chunkText.startsWith(spellQuoteFirstChar) || !spellBuffer.toString().isEmpty()){
-                // 采集前几个字符确认是否为咒语
-                this.spellBuffer.append(chunkText);
-                // 咒语采集和处理
-                if(spellBuffer.length() >= spellQuote.length() && !spellBuffer.toString().startsWith(spellQuote)){
-                    // 代表不是咒语，直接放过。
-                    NetUtil.writeToOutpuStream(this.spellBuffer.toString(), outputStream);
-                    spellBuffer = new StringBuilder();
+        ThinkResult thinkResult = thinkProcessor.process(magicChat);
+        if(thinkResult.getBrainOutputStream()!=null){
+            // 仅当当前的脑处理器有内容输出才需要处理，没有输出也是可以的。
+            this.bufferedReader = new BufferedReader(new InputStreamReader(thinkResult.getBrainOutputStream()));
+            String line;
+            this.magicChat.setStatus(WizardStatus.RESPONDING);
+            while ((line = bufferedReader.readLine()) != null) {
+                if(line.isEmpty()){
+                    continue;
+                }
+                if(this.isErrorResponse(line)){
+                    this.readAndLogError(bufferedReader);
+                    NetUtil.writeToOutpuStream(MessageUtil.getLLMDownError(this.magicChat.getLanguage()), outputStream);
+                    break;
+                }
+                String chunkText = thinkProcessor.parseChunk(line);
+                this.responseTextBuffer.append(chunkText);
+                if(chunkText.startsWith(spellQuoteFirstChar) || !spellBuffer.toString().isEmpty()){
+                    // 采集前几个字符确认是否为咒语
+                    this.spellBuffer.append(chunkText);
+                    // 咒语采集和处理
+                    if(spellBuffer.length() >= spellQuote.length() && !spellBuffer.toString().startsWith(spellQuote)){
+                        // 代表不是咒语，直接放过。
+                        NetUtil.writeToOutpuStream(this.spellBuffer.toString(), outputStream);
+                        spellBuffer = new StringBuilder();
+                    }
+                }
+                else if(!chunkText.isEmpty()){
+                    NetUtil.writeToOutpuStream(chunkText, outputStream);
                 }
             }
-            else if(!chunkText.isEmpty()){
-                NetUtil.writeToOutpuStream(chunkText, outputStream);
-            }
         }
-
         return thinkResult.isNeedFurtherThink();
 
     }

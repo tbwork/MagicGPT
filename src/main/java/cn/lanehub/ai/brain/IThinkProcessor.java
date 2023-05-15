@@ -18,7 +18,7 @@ public interface IThinkProcessor {
      * @param outputStream
      * @return
      */
-    public ThinkResult process(MagicChat magicChat, OutputStream outputStream);
+    public ThinkResult process(MagicChat magicChat);
 
 
     /**
