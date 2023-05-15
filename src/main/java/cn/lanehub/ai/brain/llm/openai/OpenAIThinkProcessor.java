@@ -1,13 +1,14 @@
-package cn.lanehub.ai.wizards.llm.openai;
+package cn.lanehub.ai.brain.llm.openai;
 
+import cn.lanehub.ai.brain.llm.AbstractRemoteLLMThinkProcessor;
+import cn.lanehub.ai.brain.llm.openai.model.GPTMessage;
+import cn.lanehub.ai.brain.llm.openai.model.GPTRequest;
+import cn.lanehub.ai.brain.model.ThinkResult;
 import cn.lanehub.ai.exceptions.Assert;
 import cn.lanehub.ai.exceptions.MessageStreamException;
 import cn.lanehub.ai.exceptions.RemoteLLMCallException;
-import cn.lanehub.ai.prompts.IPrompt;
+import cn.lanehub.ai.model.BrainMainProcessorType;
 import cn.lanehub.ai.util.StringUtil;
-import cn.lanehub.ai.wizards.llm.impl.AbstractChatWizard;
-import cn.lanehub.ai.wizards.llm.openai.model.GPTMessage;
-import cn.lanehub.ai.wizards.llm.openai.model.GPTRequest;
 import cn.lanehub.ai.wizards.model.MagicChat;
 import cn.lanehub.ai.wizards.model.MagicMessage;
 import com.google.gson.JsonObject;
@@ -20,48 +21,26 @@ import org.tbwork.anole.loader.Anole;
 import org.tbwork.anole.loader.util.JSON;
 
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public abstract class AbstractOpenAIChatWizard extends AbstractChatWizard {
+public class OpenAIThinkProcessor extends AbstractRemoteLLMThinkProcessor {
 
-    private static final Logger logger = LoggerFactory.getLogger(GPT4ChatWizard.class);
+    private static final Logger logger = LoggerFactory.getLogger(OpenAIThinkProcessor.class);
 
-    private static final  String DEFAULT_CHAT_API_HOST = Anole.getProperty("magicgpt.config.llm.api.openai.chat.url.default");
-    public  static final  String OEPNAI_CHAT_API_URL = Anole.getProperty("magicgpt.config.llm.api.openai.chat.url.mirror", DEFAULT_CHAT_API_HOST);
+    private String chatApiUrl;
 
-    public static final Long TIME_OUT = 300L;
-
-    private String modelName;
-
-    public AbstractOpenAIChatWizard(String aiName, int maxMessageTokenCount, int maxChatTokenCount, String modelName) {
-        super(
-                aiName,
-                maxMessageTokenCount,
-                maxChatTokenCount
+    public OpenAIThinkProcessor(BrainMainProcessorType brainMainProcessorType) {
+        super(brainMainProcessorType,
+                Anole.getLongProperty("magicgpt.config.llm.api.openai.timeout.read", 30L),
+                Anole.getLongProperty("magicgpt.config.llm.api.openai.timeout.connect", 10L),
+                Anole.getLongProperty("magicgpt.config.llm.api.openai.timeout.call", 1000L)
         );
-        this.modelName = modelName;
-    }
-
-
-    @Override
-    protected InputStream doGenerate(MagicChat magicChat) {
-
-        Response response = this.getOpenAIResponse(magicChat);
-
-        InputStream openAiSdkResponseStream = response.body().byteStream();
-
-        return openAiSdkResponseStream;
-    }
-
-
-
-    @Override
-    public IPrompt getSystemPrompt() {
-        return getMagicBook().getFirstSystemPrompt();
+        this.chatApiUrl = this.getChatAPIURL();
     }
 
     @Override
@@ -89,6 +68,16 @@ public abstract class AbstractOpenAIChatWizard extends AbstractChatWizard {
         }
     }
 
+    @Override
+    public ThinkResult process(MagicChat magicChat, OutputStream outputStream) {
+
+        Response response = this.getOpenAIResponse(magicChat);
+
+        InputStream openAiSdkResponseStream = response.body().byteStream();
+
+        return new ThinkResult(openAiSdkResponseStream);
+    }
+
 
 
     private Response getOpenAIResponse(MagicChat magicChat){
@@ -97,29 +86,27 @@ public abstract class AbstractOpenAIChatWizard extends AbstractChatWizard {
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
             //读取超时
-            builder.readTimeout(TIME_OUT, TimeUnit.SECONDS);
+            builder.readTimeout(this.readTimeoutSeconds, TimeUnit.SECONDS);
             //连接超时
-            builder.connectTimeout(TIME_OUT, TimeUnit.SECONDS);
-            //写入超时
-            builder.writeTimeout(TIME_OUT, TimeUnit.SECONDS);
+            builder.connectTimeout(this.connectTimeoutSeconds, TimeUnit.SECONDS);
             //总超时时间
-            builder.callTimeout(TIME_OUT, TimeUnit.SECONDS);
+            builder.callTimeout(this.callTimeoutSeconds, TimeUnit.SECONDS);
 
             if(Anole.getBoolProperty("magicgpt.config.network.vpn.enabled", false)){
-                Proxy vpn = new Proxy(Proxy.Type.HTTP,new InetSocketAddress(Anole.getProperty("magicgpt.config.network.vpn.host"),Anole.getIntProperty("magicgpt.config.network.vpn.port")));
+                Proxy vpn = new Proxy(Proxy.Type.HTTP,new InetSocketAddress(Anole.getProperty("magicgpt.config.network.vpn.host"), Anole.getIntProperty("magicgpt.config.network.vpn.port")));
                 builder.proxy(vpn);
             }
 
             OkHttpClient httpClient = builder.build();
             okhttp3.MediaType mediaType = okhttp3.MediaType.parse("application/json");
             GPTRequest gptRequest = buildChatGPTRequest(magicChat);
-            logger.debug(" GPT-API请求体：\n{}",  JSON.toJSONString(gptRequest));
+            logger.debug(" GPT-API Request：\n{}",  JSON.toJSONString(gptRequest));
             okhttp3.RequestBody requestBody = okhttp3.RequestBody.create(mediaType, JSON.toJSONString(gptRequest));
 
             Assert.judge(!StringUtil.isEmpty(Anole.getProperty("OPENAI_API_KEY")), "OPENAI_API_KEY is not set yet.");
             // Create the request
             Request request = new Request.Builder()
-                    .url(OEPNAI_CHAT_API_URL)
+                    .url(this.chatApiUrl)
                     .addHeader("Content-Type", "application/json")
                     .addHeader("Authorization", "Bearer "+Anole.getProperty("OPENAI_API_KEY"))
                     .post(requestBody)
@@ -140,9 +127,9 @@ public abstract class AbstractOpenAIChatWizard extends AbstractChatWizard {
      */
     private GPTRequest buildChatGPTRequest(MagicChat magicChat) {
         GPTRequest gptRequest = new GPTRequest();
-        gptRequest.setModel(this.modelName);
-        gptRequest.setMaxTokens(1000);
-        gptRequest.setTemperature(Anole.getDoubleProperty("magicgpt.config.llm.temperature", 0.6));
+        gptRequest.setModel(this.brainMainProcessorType.getValue());
+        gptRequest.setMaxTokens(this.brainMainProcessorType.getMaxTokenCount());
+        gptRequest.setTemperature(Anole.getDoubleProperty("magicgpt.config.llm.api.openai.chat.temperature", 0.6));
         gptRequest.setStream(true);
         List<GPTMessage> messages = new ArrayList<>();
         for (MagicMessage magicMessage : magicChat.getChatContent()) {
@@ -154,4 +141,13 @@ public abstract class AbstractOpenAIChatWizard extends AbstractChatWizard {
     }
 
 
+    private String getChatAPIURL(){
+
+        // 先检查镜像
+        String mirror = Anole.getProperty("magicgpt.config.llm.api.openai.chat.url.mirror");
+        if( StringUtil.isEmpty(mirror)){
+            return Anole.getProperty("magicgpt.config.llm.api.openai.chat.url.default");
+        }
+        return mirror;
+    }
 }

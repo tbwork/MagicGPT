@@ -2,7 +2,7 @@ package cn.lanehub.ai.examples.timeReporter;
 
 import cn.lanehub.ai.MagicGPT;
 import cn.lanehub.ai.annotation.CallSpellDefinition;
-import cn.lanehub.ai.model.AIWizardType;
+import cn.lanehub.ai.model.BrainMainProcessorType;
 import cn.lanehub.ai.prompts.Language;
 import cn.lanehub.ai.util.DateUtil;
 import cn.lanehub.ai.util.PromptUtil;
@@ -32,7 +32,7 @@ public class TestTimeReporter {
         String customSystemPrompt = PromptUtil.readTestResourceFile("custom_prompts/time_reporter.prompt");
 
         // 指定包名搜索本地Call类型咒语
-        MagicGPT magicGPT = new MagicGPT("cn.lanehub.ai.examples.timeReporter", "时间播报员",  AIWizardType.GPT4);
+        MagicGPT magicGPT = new MagicGPT(TestTimeReporter.class.getPackage().getName(), BrainMainProcessorType.GPT4);
 
         // 创建聊天
         MagicChat magicChat = magicGPT.startChat("你好，我是时间播报员？", customSystemPrompt, Language.CHINESE);

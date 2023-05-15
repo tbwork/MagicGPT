@@ -1,5 +1,6 @@
 package cn.lanehub.ai.wizards;
 
+import cn.lanehub.ai.brain.IThinkProcessor;
 import cn.lanehub.ai.core.spell.book.IMagicSpellBook;
 import cn.lanehub.ai.prompts.IPrompt;
 import cn.lanehub.ai.prompts.Language;
@@ -23,6 +24,7 @@ public interface IChatWizard {
      */
     void forceGenerate(MagicChat magicChat, OutputStream outputStream);
 
+
     IPrompt getSystemPrompt();
 
 
@@ -32,9 +34,9 @@ public interface IChatWizard {
     IMagicSpellBook getMagicBook();
 
 
-    String parseChunk(String chunk);
-
     MagicChat startChat(String customPrompt, Language language);
 
+
+    List<IThinkProcessor> getBrain();
 
 }

@@ -1,5 +1,7 @@
 package cn.lanehub.ai.wizards.readers;
 
+import cn.lanehub.ai.brain.IThinkProcessor;
+import cn.lanehub.ai.brain.model.ThinkResult;
 import cn.lanehub.ai.exceptions.MessageStreamException;
 import cn.lanehub.ai.model.Role;
 import cn.lanehub.ai.model.WizardStatus;
@@ -13,10 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tbwork.anole.loader.util.JSON;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.List;
 
 /**
@@ -27,6 +26,9 @@ import java.util.List;
 public class AIResponseStreamReadTask implements Runnable {
 
     private static final Logger logger = LoggerFactory.getLogger(AIResponseStreamReadTask.class);
+
+    private List<IThinkProcessor> brain;
+
     private BufferedReader bufferedReader;
     private OutputStream outputStream;
 
@@ -44,10 +46,9 @@ public class AIResponseStreamReadTask implements Runnable {
 
 
 
-    public AIResponseStreamReadTask(InputStream inputStream, OutputStream outputStream, IChatWizard chatWizard, MagicChat magicChat) {
-        this.bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+    public AIResponseStreamReadTask(List<IThinkProcessor> brain, OutputStream outputStream, MagicChat magicChat) {
+        this.brain = brain;
         this.outputStream = outputStream;
-        this.chatWizard = chatWizard;
         this.magicChat = magicChat;
         this.spellBuffer = new StringBuilder();
         this.responseTextBuffer = new StringBuilder();
@@ -56,30 +57,12 @@ public class AIResponseStreamReadTask implements Runnable {
     @Override
     public void run() {
         try {
-            String line;
-            this.magicChat.setStatus(WizardStatus.RESPONDING);
-            while ((line = bufferedReader.readLine()) != null) {
-                if(line.isEmpty()){
-                    continue;
-                }
-                if(this.isErrorResponse(line)){
-                    this.readAndLogError(bufferedReader);
-                    NetUtil.writeToOutpuStream(MessageUtil.getLLMDownError(this.magicChat.getLanguage()), outputStream);
-                }
-                String chunkText = chatWizard.parseChunk(line);
-                this.responseTextBuffer.append(chunkText);
-                if(chunkText.startsWith(spellQuoteFirstChar) || !spellBuffer.toString().isEmpty()){
-                    // 采集前几个字符确认是否为咒语
-                    this.spellBuffer.append(chunkText);
-                    // 咒语采集和处理
-                    if(spellBuffer.length() >= spellQuote.length() && !spellBuffer.toString().startsWith(spellQuote)){
-                        // 代表不是咒语，直接放过。
-                        NetUtil.writeToOutpuStream(this.spellBuffer.toString(), outputStream);
-                        spellBuffer = new StringBuilder();
-                    }
-                }
-                else if(!chunkText.isEmpty()){
-                    NetUtil.writeToOutpuStream(chunkText, outputStream);
+
+            // 根据脑中的处理器顺序逐个处理，当无需进一步处理时直接跳出。
+            for(int i = 0; i < brain.size(); i ++){
+                IThinkProcessor processor = brain.get(i);
+                if(!this.outputThinkResult(processor)){
+                    break;
                 }
             }
 
@@ -98,7 +81,6 @@ public class AIResponseStreamReadTask implements Runnable {
               如果输出为咒语
               1. 执行咒语(获得结果并放入Chat中)
               2. 重新调用generate获取最新结果, outputstream不变
-
              */
             List<String> spells = SpellUtil.findSpells(spellBuffer.toString());
             chatWizard.executeSpells(magicChat, spells);
@@ -149,6 +131,49 @@ public class AIResponseStreamReadTask implements Runnable {
         this.outputStream = null;
         this.chatWizard = null;
     }
+
+
+    /**
+     * 输出大脑思考的结果内容
+     * @param thinkProcessor
+     * @return
+     * @throws IOException
+     */
+    private boolean outputThinkResult(IThinkProcessor thinkProcessor) throws IOException {
+
+        ThinkResult thinkResult = thinkProcessor.process(magicChat, outputStream);
+        this.bufferedReader = new BufferedReader(new InputStreamReader(thinkResult.getBrainOutputStream()));
+        String line;
+        this.magicChat.setStatus(WizardStatus.RESPONDING);
+        while ((line = bufferedReader.readLine()) != null) {
+            if(line.isEmpty()){
+                continue;
+            }
+            if(this.isErrorResponse(line)){
+                this.readAndLogError(bufferedReader);
+                NetUtil.writeToOutpuStream(MessageUtil.getLLMDownError(this.magicChat.getLanguage()), outputStream);
+            }
+            String chunkText = thinkProcessor.parseChunk(line);
+            this.responseTextBuffer.append(chunkText);
+            if(chunkText.startsWith(spellQuoteFirstChar) || !spellBuffer.toString().isEmpty()){
+                // 采集前几个字符确认是否为咒语
+                this.spellBuffer.append(chunkText);
+                // 咒语采集和处理
+                if(spellBuffer.length() >= spellQuote.length() && !spellBuffer.toString().startsWith(spellQuote)){
+                    // 代表不是咒语，直接放过。
+                    NetUtil.writeToOutpuStream(this.spellBuffer.toString(), outputStream);
+                    spellBuffer = new StringBuilder();
+                }
+            }
+            else if(!chunkText.isEmpty()){
+                NetUtil.writeToOutpuStream(chunkText, outputStream);
+            }
+        }
+
+        return thinkResult.isNeedFurtherThink();
+
+    }
+
 
 
 

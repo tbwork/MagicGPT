@@ -5,7 +5,7 @@ import cn.lanehub.ai.core.search.SearchEngineType;
 import cn.lanehub.ai.core.search.SearchSpell;
 import cn.lanehub.ai.core.spell.ISpell;
 import cn.lanehub.ai.core.view.ViewSpell;
-import cn.lanehub.ai.model.AIWizardType;
+import cn.lanehub.ai.model.BrainMainProcessorType;
 import cn.lanehub.ai.prompts.Language;
 import cn.lanehub.ai.util.PromptUtil;
 import cn.lanehub.ai.util.TestUtil;
@@ -35,7 +35,7 @@ public class TestKnowEverything {
         ISpell [] spells = new ISpell[]{searchSpell, viewSpell};
 
 
-        MagicGPT magicGPT = new MagicGPT("张半仙",  AIWizardType.GPT4,  spells);
+        MagicGPT magicGPT = new MagicGPT(TestKnowEverything.class.getPackage().getName(),  BrainMainProcessorType.GPT4,  spells);
 
         // 进行聊天
         MagicChat magicChat = magicGPT.startChat("你好，我是张半仙，有啥事尽管说来？",customSystemPrompt, Language.CHINESE);

@@ -1,4 +1,4 @@
-package cn.lanehub.ai.wizards.llm.openai.model;
+package cn.lanehub.ai.brain.llm.openai.model;
  
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
