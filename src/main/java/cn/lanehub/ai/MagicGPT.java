@@ -12,6 +12,7 @@ import cn.lanehub.ai.model.BrainMainProcessorType;
 import cn.lanehub.ai.prompts.Language;
 import cn.lanehub.ai.wizards.IChatWizard;
 import cn.lanehub.ai.wizards.impl.ChatWizard;
+import cn.lanehub.ai.wizards.model.CustomPrompt;
 import cn.lanehub.ai.wizards.model.MagicChat;
 import org.reflections.Reflections;
 import org.reflections.util.ConfigurationBuilder;
@@ -74,11 +75,11 @@ public class MagicGPT {
      * 创建一个对话
      *
      * @param greeting 第一个来自AI的问候语
-     * @param customPrompt 用户自定义提示词
+     * @param customPrompt 用户自定义的提示词
      * @param language 使用何种语言进行对话
      * @return
      */
-    public MagicChat startChat(String greeting, String customPrompt, Language language){
+    public MagicChat startChat(String greeting, CustomPrompt customPrompt, Language language){
         MagicChat magicChat = this.chatWizard.startChat(customPrompt, language);
         magicChat.appendAssistantMessage(greeting);
         return magicChat;
@@ -164,6 +165,8 @@ public class MagicGPT {
                         customBrainProcessor.setThinkProcessor(processor);
                         customBrainProcessor.setOrder(clazz.getAnnotation(Order.class).value());
                         customBrainProcessors.add(customBrainProcessor);
+
+                        logger.debug("New CustomBrainProcessor found : {} with order = {}", clazz.getName(),  customBrainProcessor.getOrder());
                     } catch (Exception e) {
                         logger.error("Failed to create instance of IThinkProcessor subclass, no args constructor not found." + clazz.getName(), e);
 //                        throw new MagicGPTGeneralException("IThinkProcessor子类实例化失败，请检查一下是否有无参构造函数。");

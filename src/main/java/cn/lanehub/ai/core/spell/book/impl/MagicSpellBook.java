@@ -41,9 +41,9 @@ public class MagicSpellBook implements IMagicSpellBook {
         String spellName = spellParts.get(0).toLowerCase();
         Assert.isNotBlank(spellName, "Spell name");
 
-        for (ISpellManager spell : supportedMagicSpellManagers.values()){
-            if(spell.fit(spellName)){
-                return spell;
+        for (ISpellManager spellManager : supportedMagicSpellManagers.values()){
+            if(spellManager.fit(spellName)){
+                return spellManager;
             }
         }
 

@@ -18,6 +18,7 @@ public class DateQueryCallSpell implements CallSpellAPI {
         return "该咒语可以帮助你获得当前的时间。";
     }
 
+
     @Override
     public List<Arg> getArgs() {
         return new ArrayList<>();

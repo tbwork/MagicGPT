@@ -3,6 +3,7 @@ package cn.lanehub.ai.core.view.parser.impl;
 import cn.lanehub.ai.core.view.parser.IMediaParser;
 import cn.lanehub.ai.util.NetUtil;
 import cn.lanehub.ai.util.PromptUtil;
+import cn.lanehub.ai.util.StringUtil;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
@@ -27,7 +28,7 @@ public class ImageParser implements IMediaParser {
      */
     @Override
     public String parse(String url) {
-        return PromptUtil.formatPrompt("[IMG::{}]", this.doParse(url));
+        return StringUtil.formatString("[IMG::{}]", this.doParse(url));
     }
 
     private String doParse(String url){

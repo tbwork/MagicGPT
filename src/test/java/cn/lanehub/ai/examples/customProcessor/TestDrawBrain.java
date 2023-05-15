@@ -7,6 +7,7 @@ import cn.lanehub.ai.prompts.Language;
 import cn.lanehub.ai.util.DateUtil;
 import cn.lanehub.ai.util.PromptUtil;
 import cn.lanehub.ai.util.TestUtil;
+import cn.lanehub.ai.wizards.model.CustomPrompt;
 import cn.lanehub.ai.wizards.model.MagicChat;
 import org.tbwork.anole.loader.AnoleApp;
 import org.tbwork.anole.loader.annotion.AnoleConfigLocation;
@@ -19,7 +20,7 @@ public class TestDrawBrain {
 
     @CallSpellDefinition(name = "recommendItem", description= "给用户推荐商品")
     public static String recommendItem() {
-        return "DRAW ITEM 123,562,99,888";
+        return "DRAW ITEM 我能帮你注册一个GPT账号,http://sss.img,200;我能帮你注册一个GPT账号,http://sss.img,200;我能帮你注册一个GPT账号,http://sss.img,200;";
     }
 
 
@@ -32,7 +33,7 @@ public class TestDrawBrain {
         MagicGPT magicGPT = new MagicGPT(TestDrawBrain.class.getPackage().getName(), BrainMainProcessorType.GPT4);
 
         // 创建聊天
-        MagicChat magicChat = magicGPT.startChat("你好，我是商品推荐员！", "当用户要求推荐商品时，你就使用咒语推荐商品即可。", Language.CHINESE);
+        MagicChat magicChat = magicGPT.startChat("你好，我是商品推荐员！", CustomPrompt.buildHeadPrompt("下文会提到一些咒语，当用户要求推荐商品时，你能且仅能使用咒语推荐商品，不需要询问需求，不需要思考，直接使用最合适的咒语。"), Language.CHINESE);
         System.out.print("AI：你好，我是商品推荐员！");
 
         // 开始聊天

@@ -13,7 +13,7 @@ public class MessageUtil {
 
     public static String getLLMDownError(Language language) {
         if(Language.ENGLISH.equals(language))
-            return PromptUtil.formatPrompt("An error has occurred in the system, and I am unable to provide service for you at this time. Please contact the system administrator.");
+            return StringUtil.formatString("An error has occurred in the system, and I am unable to provide service for you at this time. Please contact the system administrator.");
         else
             return "系统出现了一些错误，我现在无法为您提供服务，请联系系统管理员。";
 

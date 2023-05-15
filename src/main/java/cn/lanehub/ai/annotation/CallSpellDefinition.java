@@ -18,4 +18,7 @@ public @interface CallSpellDefinition {
     @NotNull
     String description();
 
+    @NotNull
+    boolean needCast() default true;
+
 }

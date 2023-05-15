@@ -28,36 +28,7 @@ public class PromptUtil {
     }
 
 
-    public static String formatPrompt(String template, String... args) {
-        // 使用正则表达式匹配{}占位符
-        Pattern pattern = Pattern.compile("\\{\\}");
-        Matcher matcher = pattern.matcher(template);
 
-        // 统计占位符的数量
-        int count = 0;
-        while (matcher.find()) {
-            count++;
-        }
-
-        // 校验占位符数量是否和输入参数一致
-        if (count != args.length) {
-            throw new IllegalArgumentException("Invalid argument count: " + args.length + ", expected: " + count);
-        }
-
-        // 依次替换占位符
-        StringBuilder sb = new StringBuilder();
-        matcher.reset();
-        int index = 0;
-        int argIndex = 0;
-        while (matcher.find()) {
-            sb.append(template.substring(index, matcher.start()));
-            sb.append(args[argIndex]);
-            argIndex++;
-            index = matcher.end();
-        }
-        sb.append(template.substring(index));
-        return sb.toString();
-    }
 
 
     public static String parseResource(String promptResourceName) {

@@ -95,7 +95,7 @@ For other package management methods such as Gradle, SBT, Leiningen, please refe
         String customSystemPrompt = "You are a time announcer, ready to announce the time at any moment according to the user's request."; 
 
         // Creating a chat
-        Chat magicChat = magicGPT.startChat("Hello, I'am a time reporter!", customSystemPrompt, Language.CHINESE);
+        Chat magicChat = magicGPT.startChat("Hello, I'am a time reporter!", CustomPrompt.buildHeadPrompt(customSystemPrompt), Language.CHINESE);
 ```
 
 ### Proceed a chat

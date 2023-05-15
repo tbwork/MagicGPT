@@ -2,6 +2,7 @@ package cn.lanehub.ai.prompts.impl;
 
 import cn.lanehub.ai.prompts.IPrompt;
 import cn.lanehub.ai.util.PromptUtil;
+import cn.lanehub.ai.util.StringUtil;
 
 public class CallPrompt extends AbstractSpellCategoryTemplatePrompt {
 
@@ -22,6 +23,6 @@ public class CallPrompt extends AbstractSpellCategoryTemplatePrompt {
 
         String callSubSpellsText = callSubSpellsSb.toString();
 
-        return PromptUtil.formatPrompt(template, promptTexts[0], callSubSpellsText);
+        return StringUtil.formatString(template, promptTexts[0], callSubSpellsText);
     }
 }

@@ -43,6 +43,10 @@ public class DrawProcessor implements IThinkProcessor {
         }
 
         String sysResponse = extractContent(magicMessage.getContent()).trim();
+
+        // 去除多余的数字编号
+        String regex = "\\[\\d+\\]";
+        sysResponse = sysResponse.replaceAll(regex, "").trim();
         if(sysResponse.startsWith("DRAW")){
             return sysResponse;
         }
@@ -50,9 +54,9 @@ public class DrawProcessor implements IThinkProcessor {
         return null;
     }
 
-    private String extractContent(String message) {
+    private static String extractContent(String message) {
         String regex = "#S#(.*?)#E#";
-        Pattern pattern = Pattern.compile(regex);
+        Pattern pattern = Pattern.compile(regex, Pattern.DOTALL);
         Matcher matcher = pattern.matcher(message);
         if (matcher.find()) {
             return matcher.group(1);

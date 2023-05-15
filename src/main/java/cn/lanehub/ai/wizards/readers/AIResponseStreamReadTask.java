@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.tbwork.anole.loader.util.JSON;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -76,11 +77,13 @@ public class AIResponseStreamReadTask implements Runnable {
             }
 
             /*
-              如果输出为咒语
+              如果输出为咒语：
               1. 执行咒语(获得结果并放入Chat中)
               2. 重新调用generate获取最新结果, outputstream不变
              */
+
             List<String> spells = SpellUtil.findSpells(spellBuffer.toString());
+
             chatWizard.executeSpells(magicChat, spells);
             // 再次调用无需考虑Chat的忙闲。
             chatWizard.forceGenerate(magicChat, outputStream);

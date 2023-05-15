@@ -4,6 +4,7 @@ import cn.lanehub.ai.core.search.SearchEngineType;
 import cn.lanehub.ai.exceptions.Assert;
 import cn.lanehub.ai.prompts.IPrompt;
 import cn.lanehub.ai.util.PromptUtil;
+import cn.lanehub.ai.util.StringUtil;
 
 public class SearchEngineItemPrompt implements IPrompt {
 
@@ -11,7 +12,7 @@ public class SearchEngineItemPrompt implements IPrompt {
 
     public SearchEngineItemPrompt(String engineName){
 
-        this.prompt = PromptUtil.formatPrompt("{}-{}、", engineName, SearchEngineType.fromValue(engineName).getDescription());
+        this.prompt = StringUtil.formatString("{}-{}、", engineName, SearchEngineType.fromValue(engineName).getDescription());
     }
 
     @Override

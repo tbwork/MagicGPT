@@ -4,6 +4,7 @@ import cn.lanehub.ai.brain.IThinkProcessor;
 import cn.lanehub.ai.core.spell.book.IMagicSpellBook;
 import cn.lanehub.ai.prompts.IPrompt;
 import cn.lanehub.ai.prompts.Language;
+import cn.lanehub.ai.wizards.model.CustomPrompt;
 import cn.lanehub.ai.wizards.model.MagicChat;
 
 import java.io.OutputStream;
@@ -34,7 +35,7 @@ public interface IChatWizard {
     IMagicSpellBook getMagicBook();
 
 
-    MagicChat startChat(String customPrompt, Language language);
+    MagicChat startChat(CustomPrompt customPrompt, Language language);
 
 
     List<IThinkProcessor> getBrains();

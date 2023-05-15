@@ -40,6 +40,7 @@ public class CallSpell implements ISpell {
      */
     private final String requestTemplate;
 
+
     private CallSpell(Builder builder) {
         this.apiName = builder.apiName;
         this.url = builder.url;
@@ -66,6 +67,7 @@ public class CallSpell implements ISpell {
         private Map<String, String> headers;
         private Map<String, String> querys;
         private String requestTemplate;
+
 
         public Builder setApiName(String apiName) {
             this.apiName = apiName;

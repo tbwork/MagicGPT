@@ -3,6 +3,7 @@ package cn.lanehub.ai.prompts.impl;
 import cn.lanehub.ai.prompts.IPrompt;
 import cn.lanehub.ai.util.ArrayUtil;
 import cn.lanehub.ai.util.PromptUtil;
+import cn.lanehub.ai.util.StringUtil;
 import org.tbwork.anole.loader.Anole;
 
 import java.util.Date;
@@ -25,7 +26,7 @@ public class FirstSystemPrompt extends AbstractFixTemplatePrompt {
 
         String debugPrompt = Anole.getBoolProperty("magicgpt.debug.enable", false)? Anole.getProperty("magicgpt.debug.prompt")  :"";
 
-        return PromptUtil.formatPrompt(template, new String[]{spellCount, spellPromptText, debugPrompt});
+        return StringUtil.formatString(template, new String[]{spellCount, spellPromptText, debugPrompt});
     }
 
 }

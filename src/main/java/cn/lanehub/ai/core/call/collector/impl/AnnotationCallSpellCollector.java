@@ -84,7 +84,7 @@ public class AnnotationCallSpellCollector extends AbstractSpellCollector {
         Parameter[] parameters = method.getParameters();
         for (Parameter parameter : parameters) {
             if(parameter.getType() != String.class){
-                throw new MagicGPTGeneralException(PromptUtil.formatPrompt("OmniGPT only supports calling local methods that have string types as input parameters. Details: method:{}, parameter's type:{}", method.getName(), parameter.getType().getTypeName()));
+                throw new MagicGPTGeneralException(StringUtil.formatString("OmniGPT only supports calling local methods that have string types as input parameters. Details: method:{}, parameter's type:{}", method.getName(), parameter.getType().getTypeName()));
             }
             Annotation[] annotations = parameter.getAnnotations();
             for (Annotation annotation : annotations) {
@@ -93,7 +93,7 @@ public class AnnotationCallSpellCollector extends AbstractSpellCollector {
                     result.add( new Arg(false, magicArg.name(), magicArg.description(), magicArg.required()));
                 }
                 else{
-                    throw new MagicGPTGeneralException(PromptUtil.formatPrompt(" In OmniGPT, each parameter of the local function executed by each spell must be annotated with the @OmniArg annotation. Details: method:{}, parameter's type:{}", method.getName(), parameter.getType().getTypeName()));
+                    throw new MagicGPTGeneralException(StringUtil.formatString(" In OmniGPT, each parameter of the local function executed by each spell must be annotated with the @OmniArg annotation. Details: method:{}, parameter's type:{}", method.getName(), parameter.getType().getTypeName()));
                 }
             }
         }

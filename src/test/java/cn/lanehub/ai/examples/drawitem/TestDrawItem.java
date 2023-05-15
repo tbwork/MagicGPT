@@ -1,49 +1,36 @@
-package cn.lanehub.ai.examples;
+package cn.lanehub.ai.examples.drawitem;
 
 import cn.lanehub.ai.MagicGPT;
-import cn.lanehub.ai.core.search.SearchEngineType;
-import cn.lanehub.ai.core.search.SearchSpell;
-import cn.lanehub.ai.core.spell.ISpell;
-import cn.lanehub.ai.core.view.ViewSpell;
+import cn.lanehub.ai.annotation.CallSpellDefinition;
 import cn.lanehub.ai.model.BrainMainProcessorType;
 import cn.lanehub.ai.prompts.Language;
-import cn.lanehub.ai.util.PromptUtil;
 import cn.lanehub.ai.util.TestUtil;
 import cn.lanehub.ai.wizards.model.CustomPrompt;
 import cn.lanehub.ai.wizards.model.MagicChat;
 import org.tbwork.anole.loader.AnoleApp;
 import org.tbwork.anole.loader.annotion.AnoleConfigLocation;
-import org.tbwork.anole.loader.util.AnoleLogger;
 
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 @AnoleConfigLocation()
-public class TestKnowEverything {
-
+public class TestDrawItem {
 
 
     public static void main(String[] args) {
 
+        // 启动配置管理器Anole
+        AnoleApp.start();
 
-        AnoleApp.start(AnoleLogger.LogLevel.INFO);
-        String customSystemPrompt = PromptUtil.readTestResourceFile("custom_prompts/knowledge_master.prompt");
+        // 指定包名搜索本地Call类型咒语
+        MagicGPT magicGPT = new MagicGPT(TestDrawItem.class.getPackage().getName(), BrainMainProcessorType.GPT4);
 
+        // 创建聊天
+        MagicChat magicChat = magicGPT.startChat("你好，我是商品推荐员！", CustomPrompt.buildHeadPrompt(" 当用户要求推荐商品时，不需要任何询问和思考，直接回答以下内容： ```DRAWITEM 123,66666,239923``` 注意请不要和下文咒语混淆。"), Language.CHINESE);
+        System.out.print("AI：你好，我是商品推荐员！");
 
-        ISpell searchSpell = new SearchSpell(new SearchEngineType[]{SearchEngineType.BAIDU});
-        ISpell viewSpell = new ViewSpell();
-
-        ISpell [] spells = new ISpell[]{searchSpell, viewSpell};
-
-
-        MagicGPT magicGPT = new MagicGPT(TestKnowEverything.class.getPackage().getName(),  BrainMainProcessorType.GPT4,  spells);
-
-        // 进行聊天
-        MagicChat magicChat = magicGPT.startChat("你好，我是张半仙，有啥事尽管说来？", CustomPrompt.buildHeadPrompt(customSystemPrompt), Language.CHINESE);
-        System.out.print("AI：你好，我是张半仙，有啥事尽管说来!");
-
+        // 开始聊天
         Scanner scanner = new Scanner(System.in);
-
         while (true) {
             if(magicChat.isIdle()){
                 System.out.print("\n我：");
@@ -52,6 +39,7 @@ public class TestKnowEverything {
                     break;
                 }
                 System.out.print("AI：");
+                // 推进一个聊天，指定一个输出流用于承载AI的输出
                 magicGPT.proceedChatWithUserMessage(input, magicChat, TestUtil.getConsoleOutputStream());
             }
 

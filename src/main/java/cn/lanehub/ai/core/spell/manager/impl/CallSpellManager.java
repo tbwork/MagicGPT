@@ -10,6 +10,9 @@ import cn.lanehub.ai.executors.call.impl.CallExecutor;
 import cn.lanehub.ai.prompts.IPrompt;
 import cn.lanehub.ai.prompts.impl.CallItemPrompt;
 import cn.lanehub.ai.prompts.impl.CallPrompt;
+import cn.lanehub.ai.util.PromptUtil;
+import cn.lanehub.ai.util.SpellUtil;
+import cn.lanehub.ai.util.StringUtil;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -56,7 +59,6 @@ public class CallSpellManager extends AbstractSpellManager {
     }
 
 
-
     private List<IPrompt> generateCallItemPrompts(){
         List<IPrompt> result = new ArrayList<>();
         for (ISpell spell : this.getSpellList()) {
@@ -90,4 +92,5 @@ public class CallSpellManager extends AbstractSpellManager {
             return e.getMessage();
         }
     }
+
 }

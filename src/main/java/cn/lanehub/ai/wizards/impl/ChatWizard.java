@@ -9,7 +9,9 @@ import cn.lanehub.ai.model.WizardStatus;
 import cn.lanehub.ai.prompts.IPrompt;
 import cn.lanehub.ai.prompts.Language;
 import cn.lanehub.ai.util.PromptUtil;
+import cn.lanehub.ai.util.StringUtil;
 import cn.lanehub.ai.wizards.IChatWizard;
+import cn.lanehub.ai.wizards.model.CustomPrompt;
 import cn.lanehub.ai.wizards.model.MagicChat;
 import cn.lanehub.ai.wizards.model.MagicMessage;
 
@@ -36,10 +38,10 @@ public class ChatWizard implements IChatWizard {
     }
 
     @Override
-    public MagicChat startChat(String customPrompt, Language language){
+    public MagicChat startChat(CustomPrompt customPrompt, Language language){
         // 生成system角色提示词。
         IPrompt firstSystemPrompt = this.getSystemPrompt();
-        String systemPrompt =  customPrompt + "\n" + firstSystemPrompt.getPrompt() + "\n" + PromptUtil.formatPrompt("请使用{}回答问题", language.getChinese()) ;
+        String systemPrompt =  customPrompt.getHeadPrompt() + "\n" + firstSystemPrompt.getPrompt() + customPrompt.getTailPrompt() + "\n" + StringUtil.formatString("请使用{}回答问题", language.getChinese()) ;
         logger.debug("The first system prompt is: \n{}", systemPrompt);
         // 传入system提示词
         MagicChat magicChat = new MagicChat(language);

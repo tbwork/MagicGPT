@@ -91,10 +91,9 @@ Gradle，SBT，Leiningen等其他包管理方式参考： https://jitpack.io/#tb
 
         // 加载自定义提示词
         String customSystemPrompt = "你是一个时间播报员，随时按照用户的需求播报时间。";
-
-        
+ 
         // 创建聊天
-        Chat magicChat = magicGPT.startChat("你好，我是时间播报员！", customSystemPrompt, Language.CHINESE);
+        Chat magicChat = magicGPT.startChat("你好，我是时间播报员！", CustomPrompt.buildHeadPrompt(customSystemPrompt), Language.CHINESE);
 ```
 
 ### 推进对话

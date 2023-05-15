@@ -15,7 +15,6 @@ public interface IThinkProcessor {
      * 根据上下文进行思考，不断的将结果输出到指定流对象中
      *
      * @param magicChat
-     * @param outputStream
      * @return
      */
     public ThinkResult process(MagicChat magicChat);

@@ -40,6 +40,6 @@ public class ClassUtil {
                 return method;
             }
         }
-        throw new MagicGPTGeneralException(PromptUtil.formatPrompt("Cannot find method named '{}' in class '{}'", "spellProcedure", clazz.getTypeName()));
+        throw new MagicGPTGeneralException(StringUtil.formatString("Cannot find method named '{}' in class '{}'", "spellProcedure", clazz.getTypeName()));
     }
 }

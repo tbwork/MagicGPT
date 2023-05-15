@@ -7,6 +7,7 @@ import cn.lanehub.ai.prompts.Language;
 import cn.lanehub.ai.util.DateUtil;
 import cn.lanehub.ai.util.PromptUtil;
 import cn.lanehub.ai.util.TestUtil;
+import cn.lanehub.ai.wizards.model.CustomPrompt;
 import cn.lanehub.ai.wizards.model.MagicChat;
 import org.tbwork.anole.loader.AnoleApp;
 import org.tbwork.anole.loader.annotion.AnoleConfigLocation;
@@ -29,13 +30,13 @@ public class TestTimeReporter {
         AnoleApp.start();
 
         // 加载自定义提示词
-        String customSystemPrompt = PromptUtil.readTestResourceFile("custom_prompts/time_reporter.prompt");
+        String headCustomPrompt = PromptUtil.readTestResourceFile("custom_prompts/time_reporter.prompt");
 
         // 指定包名搜索本地Call类型咒语
         MagicGPT magicGPT = new MagicGPT(TestTimeReporter.class.getPackage().getName(), BrainMainProcessorType.GPT4);
 
         // 创建聊天
-        MagicChat magicChat = magicGPT.startChat("你好，当你需要知道现在几点了，随时问我!", customSystemPrompt, Language.CHINESE);
+        MagicChat magicChat = magicGPT.startChat("你好，当你需要知道现在几点了，随时问我!", CustomPrompt.buildHeadPrompt(headCustomPrompt), Language.CHINESE);
         System.out.print("AI：你好，当你需要知道现在几点了，随时问我!");
 
         // 开始聊天
