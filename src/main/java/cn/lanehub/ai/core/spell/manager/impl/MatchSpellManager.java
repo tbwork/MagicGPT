@@ -32,6 +32,13 @@ public class MatchSpellManager extends AbstractSpellManager {
 
     @Override
     protected String doCastSpell(List<String> spellArgs) {
+
+
+        String vbName = spellArgs.get(0);
+        String queryText = spellArgs.get(1);
+
+
+
         return null;
     }
 }
