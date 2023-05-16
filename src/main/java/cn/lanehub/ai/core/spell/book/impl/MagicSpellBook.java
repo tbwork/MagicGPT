@@ -26,7 +26,6 @@ public class MagicSpellBook implements IMagicSpellBook {
         supportedMagicSpellManagers.put(SpellType.CALL, new CallSpellManager());
         supportedMagicSpellManagers.put(SpellType.SEARCH, new SearchSpellManager());
         supportedMagicSpellManagers.put(SpellType.VIEW,ViewSpellManager.INSTANCE);
-        supportedMagicSpellManagers.put(SpellType.SQL,new SqlSpellManager());
         supportedMagicSpellManagers.put(SpellType.MATCH,new MatchSpellManager());
         alreadyRegisteredTypeList = new ArrayList<SpellType>();
     }

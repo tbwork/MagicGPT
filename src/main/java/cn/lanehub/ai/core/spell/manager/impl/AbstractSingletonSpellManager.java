@@ -1,18 +1,11 @@
 package cn.lanehub.ai.core.spell.manager.impl;
 
 import cn.lanehub.ai.core.spell.ISpell;
-import cn.lanehub.ai.core.spell.manager.ISpellManager;
 import cn.lanehub.ai.prompts.IPrompt;
 
 import java.util.List;
 
-public class SqlSpellManager extends AbstractSpellManager {
-
-    public SqlSpellManager() {
-        super("sql");
-    }
-
-
+public class AbstractSingletonSpellManager extends AbstractSpellManager{
     @Override
     public void registerSpell(ISpell spell) {
 
