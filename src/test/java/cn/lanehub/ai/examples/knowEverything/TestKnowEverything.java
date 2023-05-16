@@ -1,4 +1,4 @@
-package cn.lanehub.ai.examples;
+package cn.lanehub.ai.examples.knowEverything;
 
 import cn.lanehub.ai.MagicGPT;
 import cn.lanehub.ai.core.search.SearchEngineType;

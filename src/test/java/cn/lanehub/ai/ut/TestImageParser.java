@@ -1,4 +1,4 @@
-package cn.lanehub.ai;
+package cn.lanehub.ai.ut;
 
 import cn.lanehub.ai.core.view.parser.impl.ImageParser;
 import io.github.bonigarcia.wdm.WebDriverManager;

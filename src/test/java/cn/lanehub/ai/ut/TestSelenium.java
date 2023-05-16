@@ -1,4 +1,4 @@
-package cn.lanehub.ai;
+package cn.lanehub.ai.ut;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;

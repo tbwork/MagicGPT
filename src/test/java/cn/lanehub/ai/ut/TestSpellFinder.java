@@ -1,4 +1,4 @@
-package cn.lanehub.ai;
+package cn.lanehub.ai.ut;
 
 import java.util.ArrayList;
 import java.util.List;
