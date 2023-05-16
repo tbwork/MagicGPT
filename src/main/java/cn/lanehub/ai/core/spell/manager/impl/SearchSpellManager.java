@@ -5,6 +5,7 @@ import cn.lanehub.ai.core.search.SearchSpell;
 import cn.lanehub.ai.core.search.engine.ISearchEngine;
 import cn.lanehub.ai.core.search.engine.impl.BaiduSearchEngine;
 import cn.lanehub.ai.core.search.engine.impl.BingSearchEngine;
+import cn.lanehub.ai.core.search.engine.impl.GoogleCustomSearchEngine;
 import cn.lanehub.ai.core.search.engine.impl.GoogleSearchEngine;
 import cn.lanehub.ai.core.spell.ISpell;
 import cn.lanehub.ai.exceptions.Assert;
@@ -57,6 +58,7 @@ public class SearchSpellManager extends AbstractSpellManager {
         searchEngineRepository.put(SearchEngineType.BING, BingSearchEngine.INSTANCE);
         searchEngineRepository.put(SearchEngineType.GOOGLE, GoogleSearchEngine.INSTANCE);
         searchEngineRepository.put(SearchEngineType.GOOGLE_CN, GoogleSearchEngine.INSTANCE);
+        searchEngineRepository.put(SearchEngineType.GOOGLE_API, GoogleCustomSearchEngine.INSTANCE);
 
         SearchSpell searchSpell = (SearchSpell) spell;
         this.searchSpell = searchSpell;
