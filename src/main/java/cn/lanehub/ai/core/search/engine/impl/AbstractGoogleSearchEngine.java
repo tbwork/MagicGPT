@@ -30,12 +30,10 @@ public abstract class AbstractGoogleSearchEngine extends AbstractSearchEngine {
 
     @Override
     protected SearchResult doSearch(String keywords, Date startDate, Date endDate) {
-        String url = getUrl(keywords, startDate, endDate);
+        String url = getType().getUrl() + "search?ie=UTF-8&q=" + keywords;
         String page = GetSimulateAccess.INSTANCE.access(url, null, null, null);
         return analysisPage(page);
     }
-
-    protected abstract String getUrl(String keywords, Date startDate, Date endDate);
 
     private final SearchResult analysisPage(String page) {
         SearchResult searchResult = new SearchResult();

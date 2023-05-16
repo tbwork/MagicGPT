@@ -14,8 +14,4 @@ public class GoogleSearchEngine extends AbstractGoogleSearchEngine {
         super(SearchEngineType.GOOGLE);
     }
 
-    @Override
-    protected String getUrl(String keywords, Date startDate, Date endDate) {
-        return this.getType().getUrl() + "search?ie=UTF-8&q=" + keywords;
-    }
 }
