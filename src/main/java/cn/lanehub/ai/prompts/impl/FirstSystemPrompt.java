@@ -18,15 +18,9 @@ public class FirstSystemPrompt extends AbstractFixTemplatePrompt {
     @Override
     protected String doGeneratePrompt(String template, String... promptTexts) {
 
-        String spellCount = promptTexts.length+"";
-
         String spellPromptText = PromptUtil.joinPrompt(promptTexts, "\n");
 
-        String [] args = ArrayUtil.insertAtIndex(promptTexts, 0 , spellCount);
-
-        String debugPrompt = Anole.getBoolProperty("magicgpt.debug.enable", false)? Anole.getProperty("magicgpt.debug.prompt")  :"";
-
-        return StringUtil.formatString(template, new String[]{spellCount, spellPromptText, debugPrompt});
+        return StringUtil.formatString(template, new String[]{spellPromptText});
     }
 
 }
