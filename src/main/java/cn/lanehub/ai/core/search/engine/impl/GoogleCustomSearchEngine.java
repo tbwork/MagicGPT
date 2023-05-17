@@ -28,8 +28,8 @@ public class GoogleCustomSearchEngine extends AbstractSearchEngine {
     public static final GoogleCustomSearchEngine INSTANCE = new GoogleCustomSearchEngine();
     private static final Logger logger = LoggerFactory.getLogger(GoogleCustomSearchEngine.class);
 
-    private static final String GOOGLE_API_KEY = Anole.getProperty("search.google.api.key");
-    private static final String GOOGLE_API_CX = Anole.getProperty("search.google.api.cx");
+    private static final String GOOGLE_API_KEY = Anole.getProperty("magicgpt.config.search.google.api.key");
+    private static final String GOOGLE_API_CX = Anole.getProperty("magicgpt.config.search.google.api.cx");
 
     private GoogleCustomSearchEngine() {
         super(SearchEngineType.GOOGLE_API);
