@@ -35,6 +35,7 @@ public class TestTimeReporter {
         // 指定包名搜索本地Call类型咒语
         MagicGPT magicGPT = new MagicGPT(TestTimeReporter.class.getPackage().getName(), BrainMainProcessorType.GPT4);
 
+
         // 创建聊天
         MagicChat magicChat = magicGPT.startChat("你好，当你需要知道现在几点了，随时问我!", CustomPrompt.buildHeadPrompt(headCustomPrompt), Language.CHINESE);
         System.out.print("AI：你好，当你需要知道现在几点了，随时问我!");
