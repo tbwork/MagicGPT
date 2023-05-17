@@ -1,64 +1,62 @@
-# MagicGPT  
+# MagicGPT 
 
-[查看中文文档](/README_CN.md)
+[English Document](/README_EN.md)
 
-[![](https://jitpack.io/v/tbwork/MagicGPT.svg)](https://jitpack.io/#tbwork/MagicGPT)  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![](https://jitpack.io/v/tbwork/MagicGPT.svg)](https://jitpack.io/#tbwork/MagicGPT)  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  
 
-Give wings to GPT - with MagicGPT, you can enable GPT to access local methods, Restful API interfaces, common search engines, specified URLs of web pages, relational databases, vector databases, and more, anytime and anywhere as needed.
-
-
-## Motivation
-
-In March 2023, with the release of ChatGPT based on GPT-3.5 by OpenAI, Large Language Models (LLMs) have ignited the fuse of the AI era. I am eagerly anticipating the maturity of the AI era, when productivity will reach unprecedented heights, and people will have more time to pursue their passions and explore the meaning of life. Before that, open frameworks for GPT in various programming languages should be made available to engineers, so that software developers in all industries can gradually use AI to optimize specific scenarios.
-
-This framework is designed for Java programmers, and we also welcome developers from other programming languages to discuss MagicGPT solutions for their languages. If you are interested, you can contact us through the QQ group.
-
-## Current supported features
-
-| Feature             | Supported | Version  |
-|---------------------|---------|----------|
-| Local methods       | YES     | \>=1.0.0 |
-| Restful API         | YES     | \>=1.0.0 |
-| Web Page            | YES     | \>=1.0.0 |
-| Baidu Search Engine | YES     | \>=1.0.0 |
-| Relation Database   | To be implemented        | -        |
-| Vector Datebase     | To be implemented      | -        |
+给GPT装上翅膀——通过MagicGPT，你可以让GPT随时随地按需访问本地方法、Restful API接口、常见搜索引擎、指定URL地址的网页、关系型数据库、向量数据库等。
 
 
+## 初衷
 
-## The mechanism of the MagicGPT
+2023年3月随着OpenAI发布了基于GPT-3.5的ChatGPT，大语言模型（LLM）点燃了AI时代的导火索。本人非常期待AI时代的成熟期到来，届时生产力将前所未有的发达，大家可以有很多的时间做自己喜欢的事情，探索人生的意义。在这之前，各类编程语言的GPT开放式框架应当被提供出来供工程师们使用，以便各行各业的软件开发者可以逐步使用AI来优化特定的场景。
 
-To help everyone better understand the design concept of MagicGPT, we have adopted the popular and easy-to-understand mechanism of the magical world, as shown in the following diagram:
+本框架是为Java编程者提供的，也欢迎其他语言的开发者们可以共同探讨其他语言的MagicGPT解决方案，如果您有兴趣，可以通过QQ群联系我们。
 
-![MagicGPT's Mechanism](image/magic_world_en.png)
+## 目前功能支持情况
 
-You can find corresponding class names in the code and understand their meanings at a glance, just as depicted in all magic worlds:
-
-1. Each magic book records different magic spells.
-2. Each magician has his own magic book.
-3. The process of executing a spell when a wizard recites it is implemented by the magic manager of this magic world mechanism, but this point will not be mentioned in the story. 
-
-The above can help you quickly understand the relationships and functions of each class. When using it, please note:
-
-1. "ChatWizard" refers to the GPT AI virtual robot that has learned spells.
-2. A magician essentially binds a series of spells, and the spells bound by different magicians are also different.
-3. Each magician can provide a new AI answer for a context.
-4. When you ask a wizard to generate an answer based on a dialogue context, you need to specify an output stream.
-
-> Currently, MagicGPT only provides streaming responses, because synchronous responses are too slow.
+| 功能点       | 是否支持 | 支持版本     |
+|-----------|----|----------|
+| 本地方法      | YES | \>=1.0.0 |
+| Restful接口 | YES | \>=1.0.0 |
+| 网页访问      | YES | \>=1.0.0    |
+| 百度搜索引擎    | YES | \>=1.0.0    |
+| 关系型数据库访问  | 待实现 | -        |
+| 向量数据库访问   | 待实现   | -        |
 
 
 
-## How to use
+## MagicGPT魔法世界机制
 
-The following sample code demonstrates a basic usage process. Runnable code are in [TestTimeReporter.java](src/test/java/cn/lanehub/ai/examples/timeReporter/TestTimeReporter.java)
+为了帮助大家更好地理解MagicGPT的设计思路，我们采用了通俗易懂的魔法世界机制，如下图所示：
 
-> Preparation: Make sure that the anole-loader local configuration management framework has been started in the program. For specific usage, please refer to [anole-loader](https://github.com/tbwork/anole-config); This is a foolproof local configuration management framework that can access almost any location of KV configuration without worrying about where the definition file is.
+![MagicGPT's Mechanism](image/magic_world_cn.png)
 
-### Dependency configuration
+大家可以从代码中找到对应的一些类名，一看便知其意。正如所有的魔法世界中描绘的一样：
+1. 每一本魔法书都记载了不同的魔法咒语。
+2. 每个魔法师都会有一本自己的魔法书。
+3. 魔法师念出咒语，咒语被执行的过程由这个魔法世界机制的魔法管理器来实现，当然，这个点在故事里并不会被提及。
 
-If you haven't configured the JitPack repository, you need to add the following to your project's pom.xml:
+以上可以帮助大家快速理解各个类的关系和作用。在使用时需要注意：
+1. “对话魔法师(ChatWizard)”就是指学习了咒语的GPT AI虚拟机器人。
+2. 一个魔法师本质上绑定了一系列的咒语，不同的魔法师所绑定的咒语也是不一样的。
+3. 每个魔法师都可以为一个上下文补足新的一个AI回答。
+4. 当你要求魔法师基于一个对话上下文进行回答生成时，需要指定一个输出流。
 
+> 目前MagicGPT仅提供了流式返回，原因是同步返回实在太太太慢了。
+
+
+
+## 基本用法
+
+下面示例代码演示了一个基本的使用流程。 如果需要可运行的代码，查看[TestTimeReporter.java](src/test/java/cn/lanehub/ai/examples/timeReporter/TestTimeReporter.java) 
+
+> 准备工作： 确保程序已经启动了本地配置管理框架anole-loader，具体用法参考[anole-loader](https://github.com/tbwork/anole-config);
+> 这是一个傻瓜式本地配置管理框架，几乎可以访问任何位置的kv配置，而无需关心定义文件在哪里。
+
+### 依赖配置
+
+如果您没有配置JitPack仓库，需要在项目的pom.xml中加上：
 ```xml
     <repositories>
         <repository>
@@ -68,10 +66,10 @@ If you haven't configured the JitPack repository, you need to add the following 
     </repositories>
 
 ```
-> You can also configure it in .m2/settings.xml.
+> 也可以在.m2/settings.xml中配置
 
 
-Then import the MagicGPT package:
+然后引入MagicGPT包:
 
 ```xml
 
@@ -83,109 +81,114 @@ Then import the MagicGPT package:
 
 ```
 
-For other package management methods such as Gradle, SBT, Leiningen, please refer to: https://jitpack.io/#tbwork/MagicGPT
+
+Gradle，SBT，Leiningen等其他包管理方式参考： https://jitpack.io/#tbwork/MagicGPT
 
 
-### Setting Key Variables
+### 设置关键变量
 
-#### GPT3/4 Large Model
+#### GPT3/4 大模型
 
-Configure the OPENAI_API_KEY in the system environment. Below are the methods for setting environment variables on different operating systems:
+将OPENAI_API_KEY配置到系统环境中。以下是不同操作系统设置环境变量的方法：
 
 Windows
 
 ```
-1. Open the "Control Panel" and select "System and Security" > "System" > "Advanced system settings".
+打开“控制面板”，选择“系统和安全”>“系统”>“高级系统设置”。
 
-2. In the "System Properties" dialog box, select the "Advanced" tab, and then click the "Environment Variables" button under "Environment Variables".
+在“系统属性”对话框中，选择“高级”选项卡，然后在“环境变量”下点击“环境变量”按钮。
 
-3. In the "Environment Variables" dialog box, you can add, edit, and delete user variables and system variables.
+在“环境变量”对话框中，可以添加、编辑和删除用户变量和系统变量。
 
-4. To add a new system variable, select the "New" button, enter the variable name and value, and then click "OK".
+若要添加一个新的系统变量，选择“新建”按钮，输入变量名和变量值，然后点击“确定”。
 ```
 
 MacOS
+
 ```
-1. Open the "Terminal" application in macOS.
+在 macOS 中，打开“终端”应用程序。
 
-2. Enter the command: `nano ~/.bash_profile`, and then press Enter.
+输入以下命令：nano ~/.bash_profile，然后按 Enter 键。
 
-3. In the text editor, you can add, edit, and delete environment variables.
+在文本编辑器中，可以添加、编辑和删除环境变量。
 
-4. After adding the variables, press Control + O to save, and then press Control + X to exit.
+添加完毕后，按 Control + O 键保存，然后按 Control + X 键退出。
 ```
 
 Linux
+
 ```
-1. Open the terminal application in Linux.
+在 Linux 中，打开终端应用程序。
 
-2. Enter the command: `nano ~/.bashrc`, and then press Enter.
+输入以下命令：nano ~/.bashrc，然后按 Enter 键。
 
-3. In the text editor, you can add, edit, and delete environment variables.
+在文本编辑器中，可以添加、编辑和删除环境变量。
 
-4. After adding the variables, press Control + O to save, and then press Control + X to exit.
+添加完毕后，按 Control + O 键保存，然后按 Control + X 键退出。
 ```
 
+当然也可以在任意.anole文件、.properties文件中定义（这种方法不推荐，会带来数据安全问题）。
 
-Alternatively, it can also be defined in any .anole or .properties file (although this method is not recommended as it may lead to privacy leaks).
 
-### Start a chat
+### 开启一个对话
 ```java
 
-        // Create MagicGPT: specify the package name to search for local Call-type spells.
-        MagicGPT magicGPT = new MagicGPT("<package name>", "Time reporter",  AIWizardType.GPT4);
+        // 创建MagicGPT：指定包名搜索本地Call类型咒语
+        MagicGPT magicGPT = new MagicGPT("<package name>", "时间播报员",  AIWizardType.GPT4);
 
-        // Custom Prompt Words
-        String customSystemPrompt = "You are a time announcer, ready to announce the time at any moment according to the user's request."; 
+        // 加载自定义提示词
+        String customSystemPrompt = "你是一个时间播报员，随时按照用户的需求播报时间。";
 
-        // Creating a chat
-        Chat magicChat = magicGPT.startChat("Hello, I'am a time reporter!", customSystemPrompt, Language.CHINESE);
+        
+        // 创建聊天
+        Chat magicChat = magicGPT.startChat("你好，我是时间播报员！", customSystemPrompt, Language.CHINESE);
 ```
 
-### Proceed a chat
+### 推进对话
 
-Output to console:
+输出到控制台：
 
 ```java
 
-        // User inputs a sentence to initiate a chat and specifies the output stream to the console.
+        // 用户输入一句话，推进一个聊天，指定控制台输出流
         magicGPT.proceedChatWithUserMessage(input, magicChat, new SystemOutputStream());
 
 ```
 
-Output to HttpResponse：
+输出到HttpResponse：
 ```java
 
         OutputStream outputStream = response.getEntity().getContent();
 
-        // User inputs a sentence, a chat is pushed forward, and HttpResponse output stream is specified.
+        // 用户输入一句话，推进一个聊天，指定HttpResponse输出流
         magicGPT.proceedChatWithUserMessage(input, magicChat, outputStream);
 
 ```
 
-The complete runnable code can be found in "cn.lanehub.ai.examples" under "src/test/java" directory.
-
-**Running result:**
-
-![Time Announcer](image/example_resul.png)
+完整的可运行代码在src/test/java的cn.lanehub.ai.examples下。
 
 
+**运行效果图：**
 
-## How to contribute to the code
-1. Make sure you have a complete understanding of the MagicGPT magic world mechanism.
-2. Any form of contribution is welcome: issue suggestions, pull requests, group recommendations, etc.
-3. If you want to modify the code in this repository, please create a relevant issue first and then submit a pull request.
-4. Do not expose any private data in the code. We cannot assume any responsibility for data breaches.
+![时间播报员](image/example_resul.png)
 
 
-## Donation
+
+## 如何贡献代码
+1. 确定自己已经完全理解了MagicGPT的魔法世界机制。
+2. 欢迎任何形式的贡献：ISSUE建议、Pull Request、加群建议等。
+3. 如果想要在本仓库改动代码，请先创建相关ISSUE，然后再提交Pull Request。
+4. 不要将任何隐私数据暴露到代码中，我们对数据泄露无法担负任何责任。
 
 
-## Study and Discussion Group (QQ)
+## 捐赠
+
+
+## 学习讨论群
 ![img.png](image/qq.png)
 
 
 
-## Open Source License
+## 开源许可
 
-This project follows the [MIT Open Source License](https://opensource.org/licenses/MIT).
+本项目遵循 [MIT 开源许可](https://opensource.org/licenses/MIT)。
