@@ -6,6 +6,7 @@ import cn.lanehub.ai.core.search.engine.ISearchEngine;
 import cn.lanehub.ai.core.search.engine.impl.*;
 import cn.lanehub.ai.core.spell.ISpell;
 import cn.lanehub.ai.exceptions.Assert;
+import cn.lanehub.ai.exceptions.FailToStartException;
 import cn.lanehub.ai.executors.IExecutor;
 import cn.lanehub.ai.executors.ITask;
 import cn.lanehub.ai.executors.search.SearchTask;
@@ -62,13 +63,20 @@ public class SearchSpellManager extends AbstractSpellManager {
 
         for(SearchEngineType userSpecifiedSearchEngineType : searchSpell.getSupportedSearchEngines()){
 
-            boolean removeUnavailableSearchEngine = Anole.getBoolProperty("spell.search.engine.check", false);
-            if(removeUnavailableSearchEngine && !this.checkURLAvailable(userSpecifiedSearchEngineType.getUrl())){
-                logger.warn("The search engine named '{}' is not available, it's removed out, please check the '{}' and restart again. Or set the key '{}' as 'false' in anole config file if you persist to support it any way. ",
-                        userSpecifiedSearchEngineType.getValue(), userSpecifiedSearchEngineType.getUrl(), "spell.search.engine.check");
-            }else{
-                searchEngineMap.put(userSpecifiedSearchEngineType.getValue(), searchEngineRepository.get(userSpecifiedSearchEngineType));
+            boolean needCheck = Anole.getBoolProperty("magicgpt.config.spell.search.engine.check", false);
+
+            if(!this.checkURLAvailable(userSpecifiedSearchEngineType.getUrl())){
+                if(needCheck){
+                    logger.error("Fails to start due to the search engine named '{}' is not available, please check the '{}' and restart again. Or set the key '{}' as 'false' in anole config file if you persist to start any way. ",
+                            userSpecifiedSearchEngineType.getValue(), userSpecifiedSearchEngineType.getUrl(), "magicgpt.config.spell.search.engine.check");
+                    throw new FailToStartException("The search engine validation is not passed!");
+                }
+                else{
+                    logger.error("Fails to start due to the search engine named '{}' is not available. ", userSpecifiedSearchEngineType.getValue());
+                }
             }
+
+            searchEngineMap.put(userSpecifiedSearchEngineType.getValue(), searchEngineRepository.get(userSpecifiedSearchEngineType));
         }
 
     }
