@@ -25,7 +25,7 @@ magicgpt.config.llm.api.openai.magicChat.url.mirror=
 
 
 # Search
-#使用google custom search时分配的key，如果您的项目是开源项目，建议该值配置到环境变量中，避免信息泄露
+# 使用google custom search时分配的key，如果您的项目是开源项目，建议该值配置到环境变量中，避免信息泄露
 magicgpt.config.search.google.api.key=
-#使用google custom search时分配的引擎id，如果您的项目是开源项目，建议该值配置到环境变量中，避免信息泄露
+# 使用google custom search时分配的引擎id，如果您的项目是开源项目，建议该值配置到环境变量中，避免信息泄露
 magicgpt.config.search.google.api.cx=
