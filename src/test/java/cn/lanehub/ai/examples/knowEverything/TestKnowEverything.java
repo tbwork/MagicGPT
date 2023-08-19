@@ -1,4 +1,4 @@
-package cn.lanehub.ai.examples;
+package cn.lanehub.ai.examples.knowEverything;
 
 import cn.lanehub.ai.MagicGPT;
 import cn.lanehub.ai.core.search.SearchEngineType;
@@ -30,7 +30,7 @@ public class TestKnowEverything {
         String customSystemPrompt = PromptUtil.readTestResourceFile("custom_prompts/knowledge_master.prompt");
 
 
-        ISpell searchSpell = new SearchSpell(new SearchEngineType[]{SearchEngineType.BAIDU});
+        ISpell searchSpell = new SearchSpell(new SearchEngineType[]{SearchEngineType.GOOGLE});
         ISpell viewSpell = new ViewSpell();
 
         ISpell [] spells = new ISpell[]{searchSpell, viewSpell};

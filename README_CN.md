@@ -1,6 +1,8 @@
-# OmniGPT
+# MagicGPT 
 
-[![](https://jitpack.io/v/tbwork/MagicGPT.svg)](https://jitpack.io/#tbwork/MagicGPT)  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[English Document](/README.md)
+
+[![](https://jitpack.io/v/tbwork/MagicGPT.svg)](https://jitpack.io/#tbwork/MagicGPT)  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  
 
 给GPT装上翅膀——通过MagicGPT，你可以让GPT随时随地按需访问本地方法、Restful API接口、常见搜索引擎、指定URL地址的网页、关系型数据库、向量数据库等。
 
@@ -14,13 +16,13 @@
 ## 目前功能支持情况
 
 | 功能点       | 是否支持 | 支持版本     |
-|-----------|--|----------|
+|-----------|----|----------|
 | 本地方法      | YES | \>=1.0.0 |
 | Restful接口 | YES | \>=1.0.0 |
 | 网页访问      | YES | \>=1.0.0    |
 | 百度搜索引擎    | YES | \>=1.0.0    |
-| 关系型数据库访问  | NO | -        |
-| 向量数据库访问   | NO | -        |
+| 关系型数据库访问  | 待实现 | -        |
+| 向量数据库访问   | 待实现   | -        |
 
 
 
@@ -47,7 +49,7 @@
 
 ## 基本用法
 
-下面示例代码演示了一个基本的使用流程。
+下面示例代码演示了一个基本的使用流程。 如果需要可运行的代码，查看[TestTimeReporter.java](src/test/java/cn/lanehub/ai/examples/timeReporter/TestTimeReporter.java) 
 
 > 准备工作： 确保程序已经启动了本地配置管理框架anole-loader，具体用法参考[anole-loader](https://github.com/tbwork/anole-config);
 > 这是一个傻瓜式本地配置管理框架，几乎可以访问任何位置的kv配置，而无需关心定义文件在哪里。
@@ -83,6 +85,51 @@
 Gradle，SBT，Leiningen等其他包管理方式参考： https://jitpack.io/#tbwork/MagicGPT
 
 
+### 设置关键变量
+
+#### GPT3/4 大模型
+
+将OPENAI_API_KEY配置到系统环境中。以下是不同操作系统设置环境变量的方法：
+
+Windows
+
+```
+打开“控制面板”，选择“系统和安全”>“系统”>“高级系统设置”。
+
+在“系统属性”对话框中，选择“高级”选项卡，然后在“环境变量”下点击“环境变量”按钮。
+
+在“环境变量”对话框中，可以添加、编辑和删除用户变量和系统变量。
+
+若要添加一个新的系统变量，选择“新建”按钮，输入变量名和变量值，然后点击“确定”。
+```
+
+MacOS
+
+```
+在 macOS 中，打开“终端”应用程序。
+
+输入以下命令：nano ~/.bash_profile，然后按 Enter 键。
+
+在文本编辑器中，可以添加、编辑和删除环境变量。
+
+添加完毕后，按 Control + O 键保存，然后按 Control + X 键退出。
+```
+
+Linux
+
+```
+在 Linux 中，打开终端应用程序。
+
+输入以下命令：nano ~/.bashrc，然后按 Enter 键。
+
+在文本编辑器中，可以添加、编辑和删除环境变量。
+
+添加完毕后，按 Control + O 键保存，然后按 Control + X 键退出。
+```
+
+当然也可以在任意.anole文件、.properties文件中定义（这种方法不推荐，会带来数据安全问题）。
+
+
 ### 开启一个对话
 ```java
 
@@ -103,7 +150,7 @@ Gradle，SBT，Leiningen等其他包管理方式参考： https://jitpack.io/#tb
 ```java
 
         // 用户输入一句话，推进一个聊天，指定控制台输出流
-        magicGPT.proceedChatWithUserMessage(input, magicChat, TestUtil.getConsoleOutputStream());
+        magicGPT.proceedChatWithUserMessage(input, magicChat, new SystemOutputStream());
 
 ```
 
@@ -118,6 +165,11 @@ Gradle，SBT，Leiningen等其他包管理方式参考： https://jitpack.io/#tb
 ```
 
 完整的可运行代码在src/test/java的cn.lanehub.ai.examples下。
+
+
+**运行效果图：**
+
+![时间播报员](image/example_resul.png)
 
 
 

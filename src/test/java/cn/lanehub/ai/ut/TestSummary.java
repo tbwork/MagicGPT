@@ -1,4 +1,4 @@
-package cn.lanehub.ai;
+package cn.lanehub.ai.ut;
 
 public class TestSummary {
 

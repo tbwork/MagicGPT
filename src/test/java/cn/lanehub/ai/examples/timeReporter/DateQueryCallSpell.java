@@ -1,7 +1,7 @@
-package cn.lanehub.ai.call;
+package cn.lanehub.ai.examples.timeReporter;
 
-import cn.lanehub.ai.model.CallSpellAPI;
 import cn.lanehub.ai.model.Arg;
+import cn.lanehub.ai.model.CallSpellAPI;
 import cn.lanehub.ai.util.DateUtil;
 
 import java.util.ArrayList;
@@ -17,7 +17,6 @@ public class DateQueryCallSpell implements CallSpellAPI {
     public String getDescription() {
         return "该咒语可以帮助你获得当前的时间。";
     }
-
 
     @Override
     public List<Arg> getArgs() {
