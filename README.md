@@ -5,11 +5,12 @@
 [![](https://jitpack.io/v/tbwork/MagicGPT.svg)](https://jitpack.io/#tbwork/MagicGPT)  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  
 
 让人工智能体使用你本地提供的方法工具来完成任务。你可以使用MagicGPT轻松帮你完成：
-1、从大量无规律文本中清洗数据
-2、7X24小时打标签的标签员、审核员
-3、7X24小时的帖子管理员
-4、替代你公司的后台型员工（即依赖自研后台系统完成任务的工种）
-5、更多可能，等你来实现。
+
+1. 从大量无规律文本中清洗数据
+2. 7X24小时打标签的标签员、审核员
+3. 7X24小时的帖子管理员
+4. 替代你公司的后台型员工（即依赖自研后台系统完成任务的工种）
+5. 更多可能，等你来实现。
 
 
 ## 初衷
