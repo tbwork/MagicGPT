@@ -34,7 +34,7 @@
 
 为了帮助大家更好地理解MagicGPT的设计思路，我们采用了通俗易懂的魔法世界机制，如下图所示：
 
-![MagicGPT's Mechanism](image/principle.jpg)
+<img src="image/principle.jpg" alt="img" width="500px"> 
 
 以上可以帮助大家快速理解各个类的关系和作用。在使用时需要注意：
 1. “对话魔法师(ChatWizard)”就是指学习了咒语的GPT AI虚拟机器人。
