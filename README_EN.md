@@ -30,7 +30,7 @@ This framework is designed for Java programmers, but developers from other langu
 
 To help everyone better understand the design concept of MagicGPT, we have adopted the popular and easy-to-understand mechanism of the magical world, as shown in the following diagram:
 
-<img src="image/principle.jpg" alt="img" width="500px"> 
+<img src="image/principle.jpg" alt="img" width="80%"> 
 
 You can find corresponding class names in the code and understand their meanings at a glance, just as depicted in all magic worlds:
 
