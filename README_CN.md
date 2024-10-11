@@ -200,7 +200,7 @@ Linux
 
 
 ## 微信讨论群
-![img.png](image/wechatgroup.png)
+<img src="image/wechatgroup.png" alt="img" width="200px">
 
 
 
