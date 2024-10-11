@@ -30,7 +30,7 @@ This framework is designed for Java programmers, but developers from other langu
 
 To help everyone better understand the design concept of MagicGPT, we have adopted the popular and easy-to-understand mechanism of the magical world, as shown in the following diagram:
 
-![MagicGPT's Mechanism](image/magic_world_en.png)
+![MagicGPT's Mechanism](image/principle.jpg)
 
 You can find corresponding class names in the code and understand their meanings at a glance, just as depicted in all magic worlds:
 
@@ -189,7 +189,7 @@ For complete runnable code, refer to src/test/java under com.magicvector.ai.exam
 
 
 ## Study and Discussion Group (QQ)
-![img.png](image/qq.png)
+![img.png](image/wechatgroup.png)
 
 
 
