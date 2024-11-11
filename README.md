@@ -100,7 +100,7 @@ Gradle，SBT，Leiningen等其他包管理方式参考： https://jitpack.io/#tb
 
 #### GPT3/4 大模型
 
-将OPENAI_API_KEY配置到系统环境中。以下是不同操作系统设置环境变量的方法：
+将AI_API_KEY配置到系统环境中。以下是不同操作系统设置环境变量的方法：
 
 Windows
 

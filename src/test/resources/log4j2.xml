@@ -24,8 +24,8 @@
         <Logger name="org.apache" level="OFF"/>
         <Logger name="io.github" level="OFF"/>
         <Root level="debug">
-            <AppenderRef ref="DebugAppender" level="debug" />
-            <AppenderRef ref="InfoAppender" level="info" />
+            <AppenderRef ref="DebugAppender" />
+            <AppenderRef ref="InfoAppender" />
         </Root>
     </Loggers>
 </Configuration>

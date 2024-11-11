@@ -141,8 +141,11 @@ public class MagicGPT {
 
 
     public void proceedChatWithUserMessage(MagicChat magicChat, String userMessageContent, OutputStream outputStream){
+        if(!holdMode){
+            magicChat.clearConversation();
+        }
         magicChat.appendUserMessage(userMessageContent);
-        this.proceedChat(magicChat, outputStream);
+        chatWizard.doThink(magicChat, outputStream);
     }
 
 }

@@ -99,7 +99,7 @@ For other package management methods such as Gradle, SBT, Leiningen, please refe
 
 #### GPT3/4 Large Model
 
-Configure the OPENAI_API_KEY in the system environment. Below are the methods for setting environment variables on different operating systems:
+Configure the AI_API_KEY in the system environment. Below are the methods for setting environment variables on different operating systems:
 
 Windows
 
