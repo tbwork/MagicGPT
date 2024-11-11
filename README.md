@@ -201,7 +201,7 @@ Linux
 
 
 ## 微信讨论群
-<img src="image/wechatgroup.png" alt="img" width="200px">
+<img src="image/wechatgroup.jpg" alt="img" width="200px">
 
 
 

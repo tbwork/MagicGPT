@@ -189,7 +189,7 @@ For complete runnable code, refer to src/test/java under com.magicvector.ai.exam
 
 
 ## Wechat Group
-<img src="image/wechatgroup.png" alt="img" width="200px">
+<img src="image/wechatgroup.jpg" alt="img" width="200px">
 
 
 
