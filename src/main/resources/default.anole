@@ -16,7 +16,7 @@ magicgpt.config.network.vpn.port=
 # OpenAI Chat模型API地址
 magicgpt.config.llm.api.openai.chat.url.default=https://api.openai.com/v1/chat/completions
 # OPENAI Chat模型的镜像配置，如果你的项目是开源项目，建议将此项配置到环境变量中，以免泄露
-# magicgpt.config.llm.api.openai.chat.url.mirror=
+#magicgpt.config.llm.api.openai.chat.url.mirror=
 
 magicgpt.config.llm.api.openai.chat.temperature=0.6
 

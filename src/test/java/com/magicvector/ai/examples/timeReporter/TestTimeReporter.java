@@ -30,7 +30,7 @@ public class TestTimeReporter {
         AnoleApp.start();
 
         // 加载自定义提示词
-        String headCustomPrompt = PromptUtil.readTestResourceFile("custom_prompts/time_reporter.prompt");
+        String headCustomPrompt = PromptUtil.readTestResourceByRelativePath("custom_prompts/time_reporter.prompt");
 
         // 指定包名搜索本地Call类型咒语
         MagicGPT magicGPT = new MagicGPT(TestTimeReporter.class.getPackage().getName(),
