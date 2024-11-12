@@ -1,7 +1,6 @@
 package com.magicvector.ai.brain.llm;
 
 import com.magicvector.ai.brain.Brain;
-import com.magicvector.ai.brain.llm.openai.model.OpenAIModel;
 
 
 public abstract class AbstractRemoteBrain implements Brain{
