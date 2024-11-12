@@ -4,8 +4,6 @@ import com.github.tbwork.anole.loader.util.S;
 import com.magicvector.ai.exceptions.Assert;
 import com.magicvector.ai.exceptions.MessageStreamException;
 import com.magicvector.ai.exceptions.RemoteLLMCallException;
-import com.magicvector.ai.brain.llm.openai.model.OpenAIModel;
-import com.magicvector.ai.util.StringUtil;
 import com.magicvector.ai.wizards.model.MagicChat;
 import com.magicvector.ai.wizards.model.MagicMessage;
 import com.github.tbwork.anole.loader.Anole;
@@ -32,17 +30,16 @@ public class OpenAIBrain extends AbstractRemoteBrain {
     private static final Logger logger = LoggerFactory.getLogger(OpenAIBrain.class);
 
     private String chatApiUrl;
+    private String modelName;
 
-    private OpenAIModel modelType;
-
-    public OpenAIBrain(OpenAIModel openAIModel) {
+    public OpenAIBrain(String modelName) {
         super(
                 Anole.getLongProperty("magicgpt.config.llm.api.openai.timeout.read", 30L),
                 Anole.getLongProperty("magicgpt.config.llm.api.openai.timeout.connect", 10L),
                 Anole.getLongProperty("magicgpt.config.llm.api.openai.timeout.call", 1000L)
         );
         this.chatApiUrl = this.getChatAPIURL();
-        this.modelType = openAIModel;
+        this.modelName = modelName;
     }
 
     @Override
@@ -123,7 +120,7 @@ public class OpenAIBrain extends AbstractRemoteBrain {
 
         } catch (Exception e) {
             logger.error("Fails to call OpenAI API. Details: {}", e);
-            throw new RemoteLLMCallException("GPT4");
+            throw new RemoteLLMCallException(e.getMessage());
         }
     }
 
@@ -134,7 +131,7 @@ public class OpenAIBrain extends AbstractRemoteBrain {
      */
     private GPTRequest buildChatGPTRequest(MagicChat magicChat) {
         GPTRequest gptRequest = new GPTRequest();
-        gptRequest.setModel(modelType.getValue());
+        gptRequest.setModel(modelName);
         gptRequest.setMaxTokens(Anole.getIntProperty("magicgpt.config.llm.api.openai.chat.response.max.length", 500));
         gptRequest.setTemperature(Anole.getDoubleProperty("magicgpt.config.llm.api.openai.chat.temperature", 0.6));
         gptRequest.setStream(true);
