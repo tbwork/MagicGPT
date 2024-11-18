@@ -61,9 +61,8 @@ public class MagicChat {
     }
 
     public void clearConversation(){
-        List<MagicMessage> newMessageList = new ArrayList<>();
-        newMessageList.add(chatContent.get(0));
+        MagicMessage systemPromot = chatContent.get(0);
         chatContent.clear();
-        chatContent = newMessageList;
+        chatContent.add(systemPromot);
     }
 }

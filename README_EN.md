@@ -95,11 +95,19 @@ Then import the MagicGPT package:
 For other package management methods such as Gradle, SBT, Leiningen, please refer to: https://jitpack.io/#tbwork/MagicGPT
 
 
-### Setting Key Variables
+### Set AI_API_KEY and API_MIRROR
 
-#### GPT3/4 Large Model
+#### Set as VM options
 
-Configure the OPENAI_API_KEY in the system environment. Below are the methods for setting environment variables on different operating systems:
+> E.g., in IDEA, add it in the "Edit Configurations".
+```
+-DAI_API_KEY=XXXXXXXXXXXXX -DAPI_MIRROR=https://XXXXXXXXXXXXX.XXXX/v1/chat/completions
+```
+
+
+#### Set as system variables
+
+Configure the AI_API_KEY and API_MIRROR in the system environment. Below are the methods for setting environment variables on different operating systems:
 
 Windows
 

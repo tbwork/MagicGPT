@@ -1,7 +1,6 @@
 package com.magicvector.ai.examples.timeReporter;
 
 import com.magicvector.ai.annotation.SpellDefinition;
-import com.magicvector.ai.brain.llm.openai.model.OpenAIModel;
 import com.magicvector.ai.output.SystemOutputStream;
 import com.magicvector.ai.prompts.Language;
 import com.magicvector.ai.util.DateUtil;
@@ -30,11 +29,11 @@ public class TestTimeReporter {
         AnoleApp.start();
 
         // 加载自定义提示词
-        String headCustomPrompt = PromptUtil.readTestResourceFile("custom_prompts/time_reporter.prompt");
+        String headCustomPrompt = PromptUtil.readTestResourceByRelativePath("custom_prompts/time_reporter.prompt");
 
         // 指定包名搜索本地Call类型咒语
         MagicGPT magicGPT = new MagicGPT(TestTimeReporter.class.getPackage().getName(),
-                OpenAIModel.GPT4_O4_MINI,
+                "gpt-4o-mini",
                 true
         );
 

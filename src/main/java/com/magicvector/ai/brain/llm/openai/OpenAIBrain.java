@@ -1,10 +1,9 @@
 package com.magicvector.ai.brain.llm.openai;
 
+import com.github.tbwork.anole.loader.util.S;
 import com.magicvector.ai.exceptions.Assert;
 import com.magicvector.ai.exceptions.MessageStreamException;
 import com.magicvector.ai.exceptions.RemoteLLMCallException;
-import com.magicvector.ai.brain.llm.openai.model.OpenAIModel;
-import com.magicvector.ai.util.StringUtil;
 import com.magicvector.ai.wizards.model.MagicChat;
 import com.magicvector.ai.wizards.model.MagicMessage;
 import com.github.tbwork.anole.loader.Anole;
@@ -31,17 +30,16 @@ public class OpenAIBrain extends AbstractRemoteBrain {
     private static final Logger logger = LoggerFactory.getLogger(OpenAIBrain.class);
 
     private String chatApiUrl;
+    private String modelName;
 
-    private OpenAIModel modelType;
-
-    public OpenAIBrain(OpenAIModel openAIModel) {
+    public OpenAIBrain(String modelName) {
         super(
                 Anole.getLongProperty("magicgpt.config.llm.api.openai.timeout.read", 30L),
                 Anole.getLongProperty("magicgpt.config.llm.api.openai.timeout.connect", 10L),
                 Anole.getLongProperty("magicgpt.config.llm.api.openai.timeout.call", 1000L)
         );
         this.chatApiUrl = this.getChatAPIURL();
-        this.modelType = openAIModel;
+        this.modelName = modelName;
     }
 
     @Override
@@ -57,7 +55,11 @@ public class OpenAIBrain extends AbstractRemoteBrain {
         }
         JsonObject jsonObject = (JsonObject) JSON.parse(chunk);
         try{
-            if(jsonObject.getAsJsonArray("choices").get(0).getAsJsonObject().get("delta").getAsJsonObject().get("content") == null){
+            if(jsonObject.getAsJsonArray("choices").size() ==0
+                    ||
+                    ( !jsonObject.getAsJsonArray("choices").get(0).getAsJsonObject().get("finish_reason").isJsonNull()
+                            && "stop".equals(jsonObject.getAsJsonArray("choices").get(0).getAsJsonObject().get("finish_reason").getAsString()))
+                    || jsonObject.getAsJsonArray("choices").get(0).getAsJsonObject().get("delta").getAsJsonObject().get("content") == null){
                 // 第一行 或者最后一行，无需摘录
                 return "";
             }
@@ -100,12 +102,16 @@ public class OpenAIBrain extends AbstractRemoteBrain {
             logger.debug(" GPT-API Request：\n{}",  JSON.toJSONString(gptRequest));
             okhttp3.RequestBody requestBody = okhttp3.RequestBody.create(mediaType, JSON.toJSONString(gptRequest));
 
-            Assert.judge(!StringUtil.isEmpty(Anole.getProperty("OPENAI_API_KEY")), "OPENAI_API_KEY is not set yet.");
+            String apiKey = Anole.getProperty("AI_API_KEY");
+            if(S.isEmpty(apiKey)){
+                apiKey = Anole.getProperty("OPENAI_API_KEY");
+            }
+            Assert.judge(S.isNotEmpty(apiKey), "AI_API_KEY is not set yet.");
             // Create the request
             Request request = new Request.Builder()
                     .url(this.chatApiUrl)
                     .addHeader("Content-Type", "application/json")
-                    .addHeader("Authorization", "Bearer "+Anole.getProperty("OPENAI_API_KEY"))
+                    .addHeader("Authorization", "Bearer "+ apiKey)
                     .post(requestBody)
                     .build();
 
@@ -114,7 +120,7 @@ public class OpenAIBrain extends AbstractRemoteBrain {
 
         } catch (Exception e) {
             logger.error("Fails to call OpenAI API. Details: {}", e);
-            throw new RemoteLLMCallException("GPT4");
+            throw new RemoteLLMCallException(e.getMessage());
         }
     }
 
@@ -125,7 +131,7 @@ public class OpenAIBrain extends AbstractRemoteBrain {
      */
     private GPTRequest buildChatGPTRequest(MagicChat magicChat) {
         GPTRequest gptRequest = new GPTRequest();
-        gptRequest.setModel(modelType.getValue());
+        gptRequest.setModel(modelName);
         gptRequest.setMaxTokens(Anole.getIntProperty("magicgpt.config.llm.api.openai.chat.response.max.length", 500));
         gptRequest.setTemperature(Anole.getDoubleProperty("magicgpt.config.llm.api.openai.chat.temperature", 0.6));
         gptRequest.setStream(true);
@@ -142,7 +148,12 @@ public class OpenAIBrain extends AbstractRemoteBrain {
     private String getChatAPIURL(){
         // 先检查镜像
         String mirror = Anole.getProperty("magicgpt.config.llm.api.openai.chat.url.mirror");
-        if( StringUtil.isEmpty(mirror)){
+
+        if(S.isEmpty(mirror)){
+            mirror = Anole.getProperty("API_MIRROR");
+        }
+
+        if(S.isEmpty(mirror)){
             return Anole.getProperty("magicgpt.config.llm.api.openai.chat.url.default");
         }
         return mirror;

@@ -96,11 +96,19 @@
 Gradle，SBT，Leiningen等其他包管理方式参考： https://jitpack.io/#tbwork/MagicGPT
 
 
-### 设置关键变量
+### 设置AI_API_KEY和API_MIRROR
 
-#### GPT3/4 大模型
+#### 在VM OPTIONS中添加
 
-将OPENAI_API_KEY配置到系统环境中。以下是不同操作系统设置环境变量的方法：
+>如IDEA中，Edit Configurations中添加即可。
+```
+-DAI_API_KEY=XXXXXXXXXXXXX -DAPI_MIRROR=https://XXXXXXXXXXXXX.XXXX/v1/chat/completions
+```
+
+
+#### 添加为环境变量
+
+将AI_API_KEY和API_MIRROR配置到系统环境中。以下是不同操作系统设置环境变量的方法：
 
 Windows
 

@@ -4,7 +4,6 @@ import com.magicvector.ai.brain.Brain;
 import com.magicvector.ai.brain.llm.openai.OpenAIBrain;
 import com.magicvector.ai.core.Spell;
 import com.magicvector.ai.core.register.SpellLoader;
-import com.magicvector.ai.brain.llm.openai.model.OpenAIModel;
 import com.magicvector.ai.prompts.Language;
 import com.magicvector.ai.wizards.IChatWizard;
 import com.magicvector.ai.wizards.impl.ChatWizard;
@@ -30,11 +29,11 @@ public class MagicGPT {
     /**
      * 创建一个MagicGPT帮助类，自动搜索并注册指定包名下的所有Call类型咒语
      * @param rootPackage 指定搜索的根包名
-     * @param openAIModel OpenAI模型类型
+     * @param modelName 模型的名称
      * @param holdMode 是否保持对话
      */
-    public MagicGPT(String rootPackage, OpenAIModel openAIModel, boolean holdMode){
-        this(rootPackage, openAIModel,  50, holdMode);
+    public MagicGPT(String rootPackage, String modelName, boolean holdMode){
+        this(rootPackage, modelName,  50, holdMode);
     }
 
     /**
@@ -71,35 +70,35 @@ public class MagicGPT {
     /**
      * 创建一个基于OpenAI的MagicGPT帮助类，自动搜索并注册指定包名下的所有Call类型咒语
      * @param rootPackage 指定搜索的根包名
-     * @param brainType OpenAI大脑类型（也就是大家熟悉的ChatGPT）
+     * @param modelName 模型名称
      * @param spells 显式申明的咒语对象列表
      */
-    public MagicGPT(String rootPackage, OpenAIModel brainType, Spell... spells){
-       this(rootPackage, brainType, 50, false, spells);
+    public MagicGPT(String rootPackage, String modelName, Spell... spells){
+       this(rootPackage, modelName, 50, false, spells);
     }
 
     /**
      * 创建一个MagicGPT帮助类
      *
-     * @param brainType AI魔法师的类型
+     * @param modelName 模型名称
      * @param holdMode 是否保持回话记录
      * @param spells 显式申明的咒语对象列表
      */
-    public MagicGPT(OpenAIModel brainType, boolean holdMode, Spell ... spells){
-        this("", brainType, 50, holdMode, spells);
+    public MagicGPT(String modelName, boolean holdMode, Spell ... spells){
+        this("", modelName, 50, holdMode, spells);
     }
 
 
     /**
      * 创建一个MagicGPT帮助类，自动搜索并注册指定包名下的所有Call类型咒语
      * @param rootPackage 指定搜索的根包名
-     * @param brainType AI魔法师的大脑类型
+     * @param modelName AI模型名称
      * @param maxRounds 使用咒语的最大轮数（防止陷入无限调用）
      * @param spells 显式申明的咒语对象列表
      * @param holdMode 是否保持对话
      */
-    public MagicGPT(String rootPackage, OpenAIModel brainType, int maxRounds, boolean holdMode, Spell... spells){
-        this(rootPackage, new OpenAIBrain(brainType), maxRounds, holdMode, spells);
+    public MagicGPT(String rootPackage, String modelName, int maxRounds, boolean holdMode, Spell... spells){
+        this(rootPackage, new OpenAIBrain(modelName), maxRounds, holdMode, spells);
     }
 
     /**
@@ -141,8 +140,11 @@ public class MagicGPT {
 
 
     public void proceedChatWithUserMessage(MagicChat magicChat, String userMessageContent, OutputStream outputStream){
+        if(!holdMode){
+            magicChat.clearConversation();
+        }
         magicChat.appendUserMessage(userMessageContent);
-        this.proceedChat(magicChat, outputStream);
+        chatWizard.doThink(magicChat, outputStream);
     }
 
 }

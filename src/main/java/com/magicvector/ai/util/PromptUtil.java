@@ -3,6 +3,7 @@ package com.magicvector.ai.util;
 import com.magicvector.ai.model.Arg;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -70,24 +71,38 @@ public class PromptUtil {
         return sb.toString();
     }
 
+    public static String readTestResourceByRelativePath(String relativePath) {
+        try (InputStream inputStream = PromptUtil.class.getClassLoader().getResourceAsStream(relativePath);
+             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+            if (inputStream == null) {
+                throw new FileNotFoundException("Resource file not found: " + relativePath);
+            }
 
-    public static String readTestResourceFile(String fileName) {
-        return readResourceFileByPath("src/test/resources/"+fileName);
-    }
-
-    public static String readResourceFile(String fileName) {
-        return readResourceFileByPath("src/java/resources/"+fileName);
-    }
-
-
-    private static String readResourceFileByPath(String relativePath) {
-        try{
-            String filePath = relativePath;
-            byte[] fileBytes = Files.readAllBytes(Paths.get(filePath));
-            String fileContent = new String(fileBytes, StandardCharsets.UTF_8);
-            return fileContent;
+            StringBuilder fileContent = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                fileContent.append(line).append(System.lineSeparator());
+            }
+            return fileContent.toString().trim();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        catch (Exception e){
+    }
+
+    public static String readResourceByRelativePath(String relativePath) {
+        try (InputStream inputStream = PromptUtil.class.getClassLoader().getResourceAsStream(relativePath);
+             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+            if (inputStream == null) {
+                throw new FileNotFoundException("Resource file not found: " + relativePath);
+            }
+
+            StringBuilder fileContent = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                fileContent.append(line).append(System.lineSeparator());
+            }
+            return fileContent.toString().trim(); // 去掉最后一个换行符
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
