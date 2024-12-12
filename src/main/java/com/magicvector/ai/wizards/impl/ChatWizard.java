@@ -1,6 +1,7 @@
 package com.magicvector.ai.wizards.impl;
 
 import com.github.tbwork.anole.loader.util.JSON;
+import com.github.tbwork.anole.loader.util.S;
 import com.google.gson.JsonObject;
 import com.magicvector.ai.brain.Brain;
 import com.magicvector.ai.core.Spell;
@@ -181,6 +182,11 @@ public class ChatWizard implements IChatWizard {
                     break;
                 }
                 String chunkText = brain.parseChunk(line);
+                if("EOF".equals(chunkText)){
+                    //结束了
+                    aiResponseStream.close();
+                    break;
+                }
                 responseBuffer.append(chunkText);
                 if(chunkText.startsWith(spellQuoteFirstChar) || !spellBuffer.toString().isEmpty()){
                     // 采集前几个字符确认是否为咒语

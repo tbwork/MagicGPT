@@ -51,7 +51,7 @@ public class OpenAIBrain extends AbstractRemoteBrain {
 
         chunk = chunk.replace("data:", "").trim();
         if(chunk.equals("[DONE]")){
-            return "";
+            return "EOF";
         }
         JsonObject jsonObject = (JsonObject) JSON.parse(chunk);
         try{

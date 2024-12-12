@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.tbwork</groupId>
     <artifactId>MagicGPT</artifactId>
-    <version>1.2.10</version>
+    <version>1.2.11</version>
     <name>MagicGPT</name>
     <description>Give GPT wings - with MagicGPT, you can enable GPT to access local methods, Restful API interfaces, common search engines, specified URLs, relational databases, vector databases, and more on-demand anytime and anywhere.</description>
     <url>https://github.com/tbwork/MagicGPT</url>
